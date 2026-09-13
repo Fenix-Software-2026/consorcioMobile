@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">consorcioMobile</string>
+    <string name="editar">Editar</string>
+    <string name="mis_reclamos">Mis Reclamos</string>
+    <string name="reparaci_n_de_ascensor">Reparación de ascensor</string>
+    <string name="mantenimiento">Mantenimiento</string>
+    <string name="en_proceso">En Proceso</string>
 </resources>

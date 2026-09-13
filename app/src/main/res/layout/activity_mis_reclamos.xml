@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondologin"
+    tools:context=".MisReclamosActivity">
+
+    <TextView
+        android:id="@+id/tvTituloReclamos"
+        style="@style/Titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:background="@color/fondo"
+        android:text="@string/mis_reclamos"
+        android:textAlignment="center"
+        android:textColor="@color/negro"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/blanco"
+        app:cardCornerRadius="20dp"
+        android:layout_margin="16dp"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloReclamos"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="@color/naranja"
+        app:strokeWidth="2dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/tvTituloReclamo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/naranja_claro"
+                android:clipToOutline="true"
+                android:padding="10dp"
+                android:text="@string/reparaci_n_de_ascensor"
+                android:textColor="@color/negro"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/ivIconoCategoria"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/baseline_build_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTituloReclamo"
+                tools:ignore="ContentDescription">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tvCategoriaReclamo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/mantenimiento"
+                android:textColor="@color/negro"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/ivIconoCategoria"
+                app:layout_constraintStart_toEndOf="@id/ivIconoCategoria"
+                app:layout_constraintTop_toTopOf="@id/ivIconoCategoria">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvEstadoReclamo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_estado_proceso"
+                android:padding="5dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/en_proceso"
+                android:textColor="@color/verde_texto"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivIconoCategoria"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivIconoCategoria">
+
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/tvDescripcionReclamo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/naranja_suave"
+                android:padding="20dp"
+                android:text="El ascensor hace ruidos extraños..."
+                android:textColor="@color/negro"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivIconoCategoria">
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/ivIconoUbicacion"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/baseline_place_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDescripcionReclamo">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tvUbicacionReclamo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Edificio Principal"
+                android:textColor="#6C757D"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivIconoUbicacion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivIconoUbicacion"
+                app:layout_constraintTop_toTopOf="@id/ivIconoUbicacion">
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/ivIconoCalendario"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivIconoUbicacion"
+                app:srcCompat="@drawable/baseline_event_24"
+                tools:ignore="ContentDescription">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tvFechaReclamo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Creado el 13 de septiembre de 2026"
+                android:textColor="#6C757D"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivIconoCalendario"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivIconoCalendario"
+                app:layout_constraintTop_toTopOf="@id/ivIconoCalendario">
+
+
+            </TextView>
+
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/naranja"
+                android:gravity="center"
+                android:text="@string/editar"
+                android:textColor="@color/negro"
+                android:textStyle="bold"
+                app:cornerRadius="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvFechaReclamo">
+
+            </Button>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

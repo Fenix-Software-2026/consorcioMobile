@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="negro">#1E2022</color>
+    <color name="negro">#172033</color>
+    <color name="gris_texto">#5F6B7A</color>
+    <color name="gris_claro">#E5E7EB</color>
     <color name="white">#F5F7FB</color>
-    <color name="naranjaclaro"> #F19443 </color>
-    <color name="naranja"> #D67527</color>
+    <color name="naranja">#FF8A1F</color>
+    <color name="naranja_claro">#FFB74D</color>
+    <color name="naranja_suave">#FFF3E6</color>
     <color name="rojo">#E53935 </color>
-    <color name="verde">#4CAF50</color>
+    <color name="verde">#B8F0B8</color>
+    <color name="verde_texto">#176B2C</color>
     <color name="amarillo">#FFEB3B</color>
+    <color name="fondo">#FAF9F7</color>
+    <color name="blanco">#FFFFFF</color>
 </resources>
