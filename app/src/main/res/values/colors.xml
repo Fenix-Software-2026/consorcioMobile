@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colores base -->
+    <color name="black">#FF000000</color>
     <color name="negro">#1E2022</color>
     <color name="white">#F5F7FB</color>
-    <color name="naranjaclaro"> #F19443 </color>
-    <color name="naranja"> #D67527</color>
-    <color name="rojo">#E53935 </color>
+
+    <!-- Paleta de la app (necesaria para los inputs y vistas anteriores) -->
+    <color name="fondo_splash">#1E1E2C</color>
+    <color name="azul_primario">#2196F3</color>
+    <color name="azul_presionado">#1976D2</color>
+    <color name="gris_fondo_input">#F4F6F9</color>
+    <color name="gris_borde_input">#CBD5E1</color>
+    <color name="texto_principal">#334155</color>
+
+    <!-- Nuevos colores agregados -->
+    <color name="naranjaclaro">#F19443</color>
+    <color name="naranja">#D67527</color>
+    <color name="rojo">#E53935</color>
     <color name="verde">#4CAF50</color>
     <color name="amarillo">#FFEB3B</color>
 </resources>

@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">consorcioMobile</string>
+    <string name="app_name">Consorcio ISPC</string>
+    <!-- Textos para la vista de Comunicados (Admin) -->
+    <string name="titulo_crear_comunicado">Publicar Nuevo Comunicado</string>
+    <string name="hint_titulo_comunicado">Título del comunicado</string>
+    <string name="hint_cuerpo_comunicado">Escriba el mensaje para los residentes...</string>
+    <string name="btn_publicar_comunicado">Enviar Comunicado</string>
 </resources>
