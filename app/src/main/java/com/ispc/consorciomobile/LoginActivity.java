@@ -2,6 +2,7 @@ package com.ispc.consorciomobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +33,9 @@ public class LoginActivity extends AppCompatActivity {
 
             if (usuario.equals(USUARIO_VALIDO) && clave.equals(CLAVE_VALIDA)) {
 
-                Toast.makeText(this, "Login correcto", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, DashboardResidenteActivity.class);
+                startActivity(intent);
+                finish();
 
             } else {
 
