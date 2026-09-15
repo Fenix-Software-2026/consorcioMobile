@@ -10,6 +10,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import android.content.Intent;
+
 public class DashboardResidenteActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -34,6 +36,17 @@ public class DashboardResidenteActivity extends AppCompatActivity {
 
             if (item.getItemId() == R.id.nav_inicio) {
                 drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+
+            if (item.getItemId() == R.id.nav_reclamos) {
+                Intent intent = new Intent(
+                        DashboardResidenteActivity.this,
+                        MisReclamosActivity.class
+                );
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(intent);
                 return true;
             }
 
