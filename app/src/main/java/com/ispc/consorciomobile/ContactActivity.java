@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class ContactActivity extends AppCompatActivity {
@@ -28,6 +29,12 @@ public class ContactActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:contacto@consorciomobile.com"));
             startActivity(intent);
+        });
+
+        Button botonVolver = findViewById(R.id.botonVolver);
+
+        botonVolver.setOnClickListener(v -> {
+            finish();
         });
     }
 }
