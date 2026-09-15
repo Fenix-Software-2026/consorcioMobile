@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F6F8">
+
+    <!-- Barra superior institucional con Logo y Botón de Volver -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/naranja"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:elevation="4dp">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/logoconsorcioappsvg"
+            android:contentDescription="Logo ConsorcioMobile"
+            android:layout_marginEnd="12dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ConsorcioMobile"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnVolverDashboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="Dashboard"
+            android:textSize="12sp"
+            android:textColor="@color/naranja"
+            android:backgroundTint="@color/white"
+            app:cornerRadius="20dp"
+            android:paddingHorizontal="14dp" />
+    </LinearLayout>
+
+    <!-- Contenedor con scroll para ver el historial de comunicados -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Saludo amigable genérico -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¡Hola, Residente!"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/negro"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aquí puedes consultar los avisos y comunicados oficiales del consorcio."
+                android:textSize="13sp"
+                android:textColor="#555555"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Título de la Sección -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Historial de Comunicados"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/negro"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Tarjeta Ejemplo 1: Comunicado URGENTE -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/naranjaclaro"
+                app:strokeColor="@color/naranja"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="6dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="[URGENTE] Corte de Gas"
+                            android:textStyle="bold"
+                            android:textColor="@color/negro"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Corte total por una hora debido a mantenimiento preventivo en la red principal."
+                        android:textColor="@color/negro"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Publicado: 13/09/2026"
+                        android:textColor="#444444"
+                        android:textSize="11sp"
+                        android:textStyle="italic"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Tarjeta Ejemplo 2: Comunicado Normal -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Reunión Anual de Consorcio"
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"
+                        android:textSize="15sp"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Se convoca a todos los propietarios a la reunión informativa en el salón de usos múltiples."
+                        android:textColor="#555555"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Publicado: 10/09/2026"
+                        android:textColor="#777777"
+                        android:textSize="11sp"
+                        android:textStyle="italic"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
