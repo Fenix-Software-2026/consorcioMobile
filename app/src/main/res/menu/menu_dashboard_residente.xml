@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_inicio"
+            android:icon="@drawable/ic_menu_24"
+            android:title="Inicio" />
+
+        <item
+            android:id="@+id/nav_reclamos"
+            android:icon="@drawable/baseline_build_24"
+            android:title="@string/mis_reclamos" />
+
+
+    </group>
+
+</menu>
