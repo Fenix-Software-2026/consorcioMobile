@@ -13,6 +13,11 @@
             android:icon="@drawable/baseline_build_24"
             android:title="@string/mis_reclamos" />
 
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/profile_silhouette"
+            android:title="Mi Perfil"/>
+
 
     </group>
 

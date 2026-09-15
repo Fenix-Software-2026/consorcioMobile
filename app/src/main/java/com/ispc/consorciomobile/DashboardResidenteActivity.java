@@ -50,6 +50,17 @@ public class DashboardResidenteActivity extends AppCompatActivity {
                 return true;
             }
 
+            if (item.getItemId() == R.id.nav_perfil) {
+                Intent intent = new Intent(DashboardResidenteActivity.this, MiPerfilActivity.class);
+
+                // Cierra el menú lateral con una animación suave
+                drawerLayout.closeDrawer(GravityCompat.START);
+
+                // Abre tu pantalla
+                startActivity(intent);
+                return true;
+            }
+
             return false;
         });
     }
