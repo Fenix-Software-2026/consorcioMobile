@@ -68,7 +68,7 @@ public class DashboardResidenteActivity extends AppCompatActivity {
                 return true;
             }
 
-            if (item.getItemId() == R.id.nav_comunicados) {
+            if (item.getItemId() == R.id.nav_contacto) {
                 Intent intent = new Intent(DashboardResidenteActivity.this, ContactActivity.class);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 startActivity(intent);
