@@ -21,7 +21,7 @@ public class MisReclamosActivity extends AppCompatActivity {
         btn_reclamos_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MisReclamosActivity.this, MainActivity.class
+                Intent intent = new Intent(MisReclamosActivity.this,  DashboardResidenteActivity.class
                 );
                 startActivity(intent);
             }});

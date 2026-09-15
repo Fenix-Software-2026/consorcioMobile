@@ -12,7 +12,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import android.content.Intent;
 
-public class DashboardResidenteActivity extends AppCompatActivity {
+public class
+DashboardResidenteActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
 
