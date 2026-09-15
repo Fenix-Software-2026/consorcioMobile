@@ -16,13 +16,24 @@ public class MisReclamosActivity extends AppCompatActivity {
 
         Button btn_reclamos_volver = findViewById(R.id.btn_reclamos_volver);
 
+        Button btn_crear_reclamo_activity = findViewById(R.id.btn_crear_reclamo_activity);
+
         btn_reclamos_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( MisReclamosActivity.this , MainActivity.class
-                        );
+                Intent intent = new Intent(MisReclamosActivity.this, MainActivity.class
+                );
                 startActivity(intent);
-            }
-        });
-    }
+            }});
+
+            btn_crear_reclamo_activity.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v){
+            Intent intent = new Intent(MisReclamosActivity.this, CrearReclamoActivity.class);
+            startActivity(intent);
+        }});
 }
+}
+
+

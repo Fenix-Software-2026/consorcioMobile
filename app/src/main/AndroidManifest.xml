@@ -13,10 +13,13 @@
         android:theme="@style/Theme.ConsorcioMobile"
         tools:targetApi="31">
         <activity
-            android:name=".MisReclamosActivity"
+            android:name=".CrearReclamoActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MisReclamosActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondologin"
-    tools:context=".MisReclamosActivity">
+    tools:context=".MisReclamosActivity"
+    tools:ignore="ExtraText">
 
     <TextView
         android:id="@+id/tvTituloReclamos"
@@ -190,7 +191,9 @@
                 android:id="@+id/button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/naranja"
                 android:gravity="center"
                 android:text="@string/editar"
@@ -200,9 +203,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFechaReclamo">
-
-            </Button>
+                app:layout_constraintTop_toBottomOf="@id/tvFechaReclamo"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -211,11 +212,25 @@
 
     <Button
         android:id="@+id/btn_reclamos_volver"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
-        android:text="Button"
+        android:text="@string/pantalla_principal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/btn_crear_reclamo_activity"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/crear_reclamo"
+        app:layout_constraintBottom_toTopOf="@+id/btn_reclamos_volver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

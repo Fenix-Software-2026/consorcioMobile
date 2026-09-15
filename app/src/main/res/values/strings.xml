@@ -5,4 +5,6 @@
     <string name="reparaci_n_de_ascensor">Reparación de ascensor</string>
     <string name="mantenimiento">Mantenimiento</string>
     <string name="en_proceso">En Proceso</string>
+    <string name="crear_reclamo">Crear Reclamo</string>
+    <string name="pantalla_principal">Pantalla principal</string>
 </resources>
