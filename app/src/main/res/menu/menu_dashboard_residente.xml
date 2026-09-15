@@ -23,6 +23,11 @@
             android:icon="@drawable/comunicado_menu"
             android:title="Comunicados" />
 
+        <item
+            android:id="@+id/nav_contacto"
+            android:icon="@drawable/baseline_contact_support_24"
+            android:title="Contactanos" />
+
 
     </group>
 
