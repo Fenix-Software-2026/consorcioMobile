@@ -49,11 +49,11 @@
 
         <activity
             android:name=".ComunicadosAdminActivity"
-            android:exported="true" />
+            android:exported="false" />
 
         <activity
             android:name=".ComunicadosResidenteActivity"
-            android:exported="true" />
+            android:exported="false" />
 
     </application>
 

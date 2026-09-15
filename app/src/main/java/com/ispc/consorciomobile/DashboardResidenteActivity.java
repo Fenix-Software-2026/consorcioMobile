@@ -61,6 +61,13 @@ public class DashboardResidenteActivity extends AppCompatActivity {
                 return true;
             }
 
+            if (item.getItemId() == R.id.nav_comunicados) {
+                Intent intent = new Intent(DashboardResidenteActivity.this, ComunicadosResidenteActivity.class);
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(intent);
+                return true;
+            }
+
             return false;
         });
     }
