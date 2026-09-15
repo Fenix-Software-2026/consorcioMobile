@@ -57,7 +57,7 @@
                 android:id="@+id/tvTituloReclamo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/naranja_claro"
+                android:background="@color/naranjaclaro"
                 android:clipToOutline="true"
                 android:padding="10dp"
                 android:text="@string/reparaci_n_de_ascensor"
