@@ -23,6 +23,10 @@ public class MiPerfilActivity extends AppCompatActivity {
             }
         });
 
+        //Cambio de texto a barra personalizada
+        TextView txtTitulo = findViewById(R.id.txtTituloBarra);
+        txtTitulo.setText("Mi Perfil");
+
         //Btn actualizar contraseña
         Button btnActualizar = findViewById(R.id.btnActualizarContrasena);
         btnActualizar.setOnClickListener(new View.OnClickListener() {
