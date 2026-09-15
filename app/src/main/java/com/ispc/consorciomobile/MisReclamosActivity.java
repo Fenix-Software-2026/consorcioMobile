@@ -30,7 +30,7 @@ public class MisReclamosActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v){
-            Intent intent = new Intent(MisReclamosActivity.this, DashboardResidenteActivity.class);
+            Intent intent = new Intent(MisReclamosActivity.this, CrearReclamoActivity.class);
             startActivity(intent);
         }});
 }
