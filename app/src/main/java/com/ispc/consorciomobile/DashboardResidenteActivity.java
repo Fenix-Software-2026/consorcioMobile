@@ -62,6 +62,20 @@ DashboardResidenteActivity extends AppCompatActivity {
                 return true;
             }
 
+            if (item.getItemId() == R.id.nav_comunicados) {
+                Intent intent = new Intent(DashboardResidenteActivity.this, ComunicadosResidenteActivity.class);
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(intent);
+                return true;
+            }
+
+            if (item.getItemId() == R.id.nav_contacto) {
+                Intent intent = new Intent(DashboardResidenteActivity.this, ContactActivity.class);
+                drawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(intent);
+                return true;
+            }
+
             return false;
         });
     }
