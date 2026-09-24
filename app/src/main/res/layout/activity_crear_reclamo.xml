@@ -38,20 +38,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTituloReclamos" />
 
-    <EditText
-        android:id="@+id/etCategoriaCrearReclamo"
+    <Spinner
+        android:id="@+id/spCategoriaCrearReclamo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:hint="Categoría"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
+        android:hint="Categoría"
+        android:inputType="textMultiLine"
         android:minWidth="48dp"
         android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etTituloCrearReclamo"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etTituloCrearReclamo" />
 
     <EditText
         android:id="@+id/etDescripcionCrearReclamo"
@@ -67,7 +68,7 @@
         android:gravity="top"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etCategoriaCrearReclamo" />
+        app:layout_constraintTop_toBottomOf="@id/spCategoriaCrearReclamo" />
 
 
     <Button
