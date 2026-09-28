@@ -1,7 +1,10 @@
 package com.ispc.consorciomobile;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.util.Log;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +19,26 @@ public class CrearReclamoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_reclamo);
+
+        ApiService apiService =
+                RetrofitClient
+                        .getRetrofitInstance()
+                        .create(ApiService.class);
+        Call<Object> call = apiService.probarConexion();
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.d("RENDER_TEST",
+                        "codigo HTTP: " + response.code());
+                Log.d("RENDER_TEST",
+                        "Respuesta:" + response.message());
+            }
+            @Override
+            public void onFailure(Call<Object> call, Throwable t){
+                Log.e("RENDER-TEST",
+                        "Error de conexion: " + t.getMessage());
+            }
+        });
 
         Button btnCrearReclamo;
         Button btnCancelarReclamo;
