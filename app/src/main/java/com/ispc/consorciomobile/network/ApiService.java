@@ -5,4 +5,6 @@ import retrofit2.http.GET;
 public interface ApiService {
     @GET ("api/reclamos/")
     Call<Object> probarConexion();
+
+
 }
