@@ -1,4 +1,4 @@
-package com.ispc.consorciomobile;
+package com.ispc.consorciomobile.network;
 
 import java.io.IOException;
 import okhttp3.Interceptor;
@@ -12,7 +12,7 @@ public class RetrofitClient {
 
     private static final String BASE_URL = "https://gaston.alwaysdata.net/" ;
     // PEGA AQUÍ TU TOKEN DE POSTMAN
-    private static final String TOKEN_TEMPORAL ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkwNjQwMzYxLCJpYXQiOjE3OTA2MzY3NjEsImp0aSI6IjZiN2IyYjliNzljZDRhYzJiYTY1NTJkZjk0NDllODcxIiwidXNlcl9pZCI6IjQiLCJyb2wiOiJhZG1pbmlzdHJhZG9yIiwidXNlcm5hbWUiOiJhZG1pbkNvbnNvciJ9.IF8bR1LC8X8mhIW_H2c2S-QU2iFiqL8H_5HEGQu__1E";
+    private static final String TOKEN_TEMPORAL ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkwNjQ4NTg2LCJpYXQiOjE3OTA2NDQ5ODYsImp0aSI6IjVjMzhlMmM0ODI4MDQ1ZjBhOTlhYjUwYTUyMzg0YmZiIiwidXNlcl9pZCI6IjQiLCJyb2wiOiJhZG1pbmlzdHJhZG9yIiwidXNlcm5hbWUiOiJhZG1pbkNvbnNvciJ9.EZm4quit8o_Q4FUfdudiVhghgWvrweKRWwF-EKaXHoE";
     private static Retrofit retrofit = null;
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {

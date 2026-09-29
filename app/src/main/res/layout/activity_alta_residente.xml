@@ -61,10 +61,22 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/etNombreInquilino"
+                        android:id="@+id/etUsuarioInquilino"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:layout_marginTop="12dp"
+                        android:background="@color/gris_fondo_input"
+                        android:hint="Usuario *"
+                        android:inputType="text"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="@color/texto_principal"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/etNombreInquilino"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="10dp"
                         android:background="@color/gris_fondo_input"
                         android:hint="Nombre *"
                         android:inputType="textPersonName|textCapSentences"
@@ -111,7 +123,6 @@
                         android:layout_height="48dp"
                         android:layout_marginTop="6dp"
                         android:background="@color/gris_fondo_input"
-                        android:entries="@array/unidades_funcionales"
                         android:paddingHorizontal="8dp"
                         android:prompt="@string/seleccionar_unidad"
                         android:spinnerMode="dropdown" />

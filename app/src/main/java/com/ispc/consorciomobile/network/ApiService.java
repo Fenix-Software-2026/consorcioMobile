@@ -1,10 +1,24 @@
-package com.ispc.consorciomobile;
+package com.ispc.consorciomobile.network;
+import com.ispc.consorciomobile.model.Residente;
+import com.ispc.consorciomobile.model.Unidad;
+
+import java.util.List;
+
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface ApiService {
     @GET ("api/reclamos/")
     Call<Object> probarConexion();
 
+    @GET("api/usuario/")
+    Call<List<Residente>> obtenerResidentes();
 
+    @GET("api/unidad/")
+    Call<List<Unidad>> obtenerUnidades();
+
+    @POST("api/usuario/")
+    Call<Residente> crearResidente(@Body Residente residente);
 }

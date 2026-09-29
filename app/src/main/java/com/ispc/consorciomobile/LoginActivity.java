@@ -16,6 +16,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String USUARIO_VALIDO = "admin";
     private static final String CLAVE_VALIDA = "1234";
+    private static final String USUARIO_ALTA_RESIDENTE = "alta";
+    private static final String CLAVE_ALTA_RESIDENTE = "1234";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,14 @@ public class LoginActivity extends AppCompatActivity {
             String usuario = inputUsuario.getText().toString();
             String clave = inputPassword.getText().toString();
 
-            if (usuario.equals(USUARIO_VALIDO) && clave.equals(CLAVE_VALIDA)) {
+            if (usuario.equals(USUARIO_ALTA_RESIDENTE)
+                    && clave.equals(CLAVE_ALTA_RESIDENTE)) {
+
+                Intent intent = new Intent(LoginActivity.this, AltaResidente.class);
+                startActivity(intent);
+                finish();
+
+            } else if (usuario.equals(USUARIO_VALIDO) && clave.equals(CLAVE_VALIDA)) {
 
                 Intent intent = new Intent(LoginActivity.this, DashboardResidenteActivity.class);
                 startActivity(intent);
