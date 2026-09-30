@@ -22,7 +22,7 @@ public class CrearReclamoActivity extends AppCompatActivity {
 
         ApiService apiService =
                 RetrofitClient
-                        .getRetrofitInstance()
+                        .getRetrofitInstance(this)
                         .create(ApiService.class);
         Call<Object> call = apiService.probarConexion();
         call.enqueue(new Callback<Object>() {

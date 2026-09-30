@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         apiService = RetrofitClient
-                .getRetrofitInstance()
+                .getRetrofitInstance(this)
                 .create(ApiService.class);
 
 
@@ -75,7 +75,11 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
 
                     LoginResponse loginResponse = response.body();
-
+                    getSharedPreferences("ConsorcioPrefs", MODE_PRIVATE)
+                            .edit()
+                            .putString("access_token", loginResponse.getAccess())
+                            .putString("refresh_token", loginResponse.getRefresh())
+                            .apply();
 
                     Toast.makeText(
                             LoginActivity.this,
