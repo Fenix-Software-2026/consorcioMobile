@@ -10,4 +10,7 @@ public interface ApiService {
 
     @POST ("api/login/")
     Call<LoginResponse> login(@Body LoginRequest request);
+
+    @GET("api/usuario/mi_perfil/")
+    Call<PerfilResidente> obtenerMiPerfil();
 }
