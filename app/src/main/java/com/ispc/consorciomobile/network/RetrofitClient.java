@@ -1,6 +1,7 @@
 package com.ispc.consorciomobile.network;
 
 import java.io.IOException;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -10,22 +11,30 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "https://gaston.alwaysdata.net/" ;
-    // PEGA AQUÍ TU TOKEN DE POSTMAN
-    private static final String TOKEN_TEMPORAL ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzkwNjQ4NTg2LCJpYXQiOjE3OTA2NDQ5ODYsImp0aSI6IjVjMzhlMmM0ODI4MDQ1ZjBhOTlhYjUwYTUyMzg0YmZiIiwidXNlcl9pZCI6IjQiLCJyb2wiOiJhZG1pbmlzdHJhZG9yIiwidXNlcm5hbWUiOiJhZG1pbkNvbnNvciJ9.EZm4quit8o_Q4FUfdudiVhghgWvrweKRWwF-EKaXHoE";
-    private static Retrofit retrofit = null;
+    private static final String BASE_URL = "https://gaston.alwaysdata.net/";
+    // El token se actualiza después de iniciar sesión correctamente.
+    private static String tokenActual = "";
+    private static Retrofit retrofit;
+
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
-            // Este interceptor inyecta el token en el Header "Authorization"
-            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    Request newRequest  = chain.request().newBuilder()
-                            .addHeader("Authorization", "Bearer " + TOKEN_TEMPORAL)
-                            .build();
-                    return chain.proceed(newRequest);
-                }
-            }).build();
+            // Este interceptor agrega el token a las llamadas protegidas de la API.
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(new Interceptor() {
+                        @Override
+                        public Response intercept(Chain chain) throws IOException {
+                            // El login no necesita token; las demás llamadas sí lo reciben.
+                            if (tokenActual.isEmpty()) {
+                                return chain.proceed(chain.request());
+                            }
+
+                            Request request = chain.request().newBuilder()
+                                    .addHeader("Authorization", "Bearer " + tokenActual)
+                                    .build();
+                            return chain.proceed(request);
+                        }
+                    })
+                    .build();
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -36,5 +45,8 @@ public class RetrofitClient {
         return retrofit;
     }
 
-
+    public static void guardarToken(String token) {
+        // Todas las llamadas futuras usarán el access token del usuario autenticado.
+        tokenActual = token == null ? "" : token;
+    }
 }

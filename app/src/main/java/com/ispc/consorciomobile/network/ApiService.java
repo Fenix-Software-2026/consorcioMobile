@@ -13,6 +13,9 @@ public interface ApiService {
     @GET ("api/reclamos/")
     Call<Object> probarConexion();
 
+    @POST("api/login/")
+    Call<LoginResponse> iniciarSesion(@Body LoginRequest request);
+
     @GET("api/usuario/")
     Call<List<Residente>> obtenerResidentes();
 
