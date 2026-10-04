@@ -9,18 +9,32 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.ispc.consorciomobile.network.ApiService;
+import com.ispc.consorciomobile.network.RetrofitClient;
 
 import android.content.Intent;
+
+import android.widget.TextView;
+import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class
 DashboardResidenteActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
 
+    private TextView tvSaludo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_residente);
+
+        tvSaludo = findViewById(R.id.tvSaludo);
+        cargarPerfilResidente();
 
         drawerLayout = findViewById(R.id.drawerLayout);
 
@@ -80,6 +94,49 @@ DashboardResidenteActivity extends AppCompatActivity {
         });
     }
 
+    private void cargarPerfilResidente() {
+        ApiService apiService = RetrofitClient
+                .getRetrofitInstance()
+                .create(ApiService.class);
+
+        apiService.obtenerMiPerfil().enqueue(new Callback<PerfilResidente>() {
+            @Override
+            public void onResponse(
+                    Call<PerfilResidente> call,
+                    Response<PerfilResidente> response
+            ) {
+                if (response.isSuccessful() && response.body() != null) {
+                    PerfilResidente perfil = response.body();
+                    String nombre = perfil.getNombre();
+
+                    if (nombre == null || nombre.trim().isEmpty()) {
+                        nombre = perfil.getUsername();
+                    }
+
+                    if (nombre == null || nombre.trim().isEmpty()) {
+                        nombre = "residente";
+                    }
+
+                    tvSaludo.setText("¡Bienvenido, " + nombre + "!");
+                } else {
+                    Toast.makeText(
+                            DashboardResidenteActivity.this,
+                            "No se pudo cargar el perfil. Código: " + response.code(),
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PerfilResidente> call, Throwable t) {
+                Toast.makeText(
+                        DashboardResidenteActivity.this,
+                        "No se pudo conectar con el servidor.",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
+    }
     @Override
     public void onBackPressed() {
         // Si el menú está abierto, Atrás solamente lo cierra.

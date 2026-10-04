@@ -1,6 +1,7 @@
 package com.ispc.consorciomobile.network;
 import com.ispc.consorciomobile.model.Residente;
 import com.ispc.consorciomobile.model.Unidad;
+import com.ispc.consorciomobile.PerfilResidente;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public interface ApiService {
 
     @POST("api/login/")
     Call<LoginResponse> iniciarSesion(@Body LoginRequest request);
+
+    @GET("api/usuario/mi_perfil/")
+    Call<PerfilResidente> obtenerMiPerfil();
 
     @GET("api/usuario/")
     Call<List<Residente>> obtenerResidentes();
