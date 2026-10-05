@@ -4,6 +4,8 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
+import java.util.List;
+
 public interface ApiService {
     @GET ("api/reclamos/")
     Call<Object> probarConexion();
@@ -13,4 +15,7 @@ public interface ApiService {
 
     @GET("api/usuario/mi_perfil/")
     Call<PerfilResidente> obtenerMiPerfil();
+
+    @GET("api/reclamos/")
+    Call<List<Reclamo>> obtenerReclamos();
 }

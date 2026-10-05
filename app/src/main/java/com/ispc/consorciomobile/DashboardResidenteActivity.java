@@ -19,12 +19,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.util.List;
+
 public class
 DashboardResidenteActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
 
     private TextView tvSaludo;
+
+    private TextView tvCantidadReclamos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,9 @@ DashboardResidenteActivity extends AppCompatActivity {
 
         tvSaludo = findViewById(R.id.tvSaludo);
         cargarPerfilResidente();
+
+        tvCantidadReclamos = findViewById(R.id.tvCantidadReclamos);
+        cargarReclamosActivos();
 
         drawerLayout = findViewById(R.id.drawerLayout);
 
@@ -127,6 +134,55 @@ DashboardResidenteActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PerfilResidente> call, Throwable t) {
+                Toast.makeText(
+                        DashboardResidenteActivity.this,
+                        "No se pudo conectar con el servidor.",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
+    }
+
+    private void cargarReclamosActivos() {
+        ApiService apiService = RetrofitClient
+                .getRetrofitInstance(this)
+                .create(ApiService.class);
+
+        apiService.obtenerReclamos().enqueue(new Callback<List<Reclamo>>() {
+            @Override
+            public void onResponse(
+                    Call<List<Reclamo>> call,
+                    Response<List<Reclamo>> response
+            ) {
+                if (response.isSuccessful() && response.body() != null) {
+                    int cantidadActivos = 0;
+
+                    for (Reclamo reclamo : response.body()) {
+                        String estado = reclamo.getEstado();
+
+                        if ("pendiente".equalsIgnoreCase(estado)
+                                || "en_proceso".equalsIgnoreCase(estado)) {
+                            cantidadActivos++;
+                        }
+                    }
+
+                    tvCantidadReclamos.setText(String.valueOf(cantidadActivos));
+                } else {
+                    tvCantidadReclamos.setText("--");
+
+                    Toast.makeText(
+                            DashboardResidenteActivity.this,
+                            "No se pudieron cargar los reclamos. Código: "
+                                    + response.code(),
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Reclamo>> call, Throwable t) {
+                tvCantidadReclamos.setText("--");
+
                 Toast.makeText(
                         DashboardResidenteActivity.this,
                         "No se pudo conectar con el servidor.",
