@@ -30,6 +30,8 @@ DashboardResidenteActivity extends AppCompatActivity {
 
     private TextView tvCantidadReclamos;
 
+    private TextView tvCantidadComunicados;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,9 @@ DashboardResidenteActivity extends AppCompatActivity {
 
         tvCantidadReclamos = findViewById(R.id.tvCantidadReclamos);
         cargarReclamosActivos();
+
+        tvCantidadComunicados = findViewById(R.id.tvCantidadComunicados);
+        cargarCantidadComunicados();
 
         drawerLayout = findViewById(R.id.drawerLayout);
 
@@ -182,6 +187,45 @@ DashboardResidenteActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Reclamo>> call, Throwable t) {
                 tvCantidadReclamos.setText("--");
+
+                Toast.makeText(
+                        DashboardResidenteActivity.this,
+                        "No se pudo conectar con el servidor.",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
+    }
+
+    private void cargarCantidadComunicados() {
+        ApiService apiService = RetrofitClient
+                .getRetrofitInstance(this)
+                .create(ApiService.class);
+
+        apiService.obtenerComunicados().enqueue(new Callback<List<Comunicado>>() {
+            @Override
+            public void onResponse(
+                    Call<List<Comunicado>> call,
+                    Response<List<Comunicado>> response
+            ) {
+                if (response.isSuccessful() && response.body() != null) {
+                    int cantidad = response.body().size();
+                    tvCantidadComunicados.setText(String.valueOf(cantidad));
+                } else {
+                    tvCantidadComunicados.setText("--");
+
+                    Toast.makeText(
+                            DashboardResidenteActivity.this,
+                            "No se pudieron cargar los comunicados. Código: "
+                                    + response.code(),
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comunicado>> call, Throwable t) {
+                tvCantidadComunicados.setText("--");
 
                 Toast.makeText(
                         DashboardResidenteActivity.this,

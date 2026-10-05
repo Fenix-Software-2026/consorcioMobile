@@ -18,4 +18,7 @@ public interface ApiService {
 
     @GET("api/reclamos/")
     Call<List<Reclamo>> obtenerReclamos();
+
+    @GET("api/comunicados/")
+    Call<List<Comunicado>> obtenerComunicados();
 }
