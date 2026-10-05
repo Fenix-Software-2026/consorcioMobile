@@ -21,6 +21,8 @@ import retrofit2.Response;
 
 import java.util.List;
 
+import android.view.View;
+
 public class
 DashboardResidenteActivity extends AppCompatActivity {
 
@@ -31,6 +33,8 @@ DashboardResidenteActivity extends AppCompatActivity {
     private TextView tvCantidadReclamos;
 
     private TextView tvCantidadComunicados;
+
+    private TextView tvTituloComunicado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,18 @@ DashboardResidenteActivity extends AppCompatActivity {
         cargarReclamosActivos();
 
         tvCantidadComunicados = findViewById(R.id.tvCantidadComunicados);
+        tvTituloComunicado = findViewById(R.id.tvTituloComunicado);
+
+        View cardUltimoComunicado = findViewById(R.id.cardUltimoComunicado);
+
+        cardUltimoComunicado.setOnClickListener(view -> {
+            Intent intent = new Intent(
+                    DashboardResidenteActivity.this,
+                    ComunicadosResidenteActivity.class
+            );
+            startActivity(intent);
+        });
+
         cargarCantidadComunicados();
 
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -209,14 +225,49 @@ DashboardResidenteActivity extends AppCompatActivity {
                     Response<List<Comunicado>> response
             ) {
                 if (response.isSuccessful() && response.body() != null) {
-                    int cantidad = response.body().size();
-                    tvCantidadComunicados.setText(String.valueOf(cantidad));
+                    List<Comunicado> comunicados = response.body();
+
+                    // Actualiza el número de la tarjeta de resumen.
+                    tvCantidadComunicados.setText(
+                            String.valueOf(comunicados.size())
+                    );
+
+                    // Si la lista está vacía, no hay un comunicado para mostrar.
+                    if (comunicados.isEmpty()) {
+                        tvTituloComunicado.setText(
+                                "No hay comunicados recientes"
+                        );
+                        return;
+                    }
+
+                    // Busca el comunicado con la fecha de publicación más reciente.
+                    Comunicado ultimo = comunicados.get(0);
+
+                    for (Comunicado comunicado : comunicados) {
+                        String fecha = comunicado.getFechaPublicacion();
+                        String fechaUltimo = ultimo.getFechaPublicacion();
+
+                        if (fecha != null
+                                && (fechaUltimo == null
+                                || fecha.compareTo(fechaUltimo) > 0)) {
+                            ultimo = comunicado;
+                        }
+                    }
+
+                    // Muestra un resumen del contenido del último comunicado.
+                    tvTituloComunicado.setText(
+                            resumirContenido(ultimo.getTitulo())
+                    );
+
                 } else {
                     tvCantidadComunicados.setText("--");
+                    tvTituloComunicado.setText(
+                            "No se pudieron cargar los comunicados"
+                    );
 
                     Toast.makeText(
                             DashboardResidenteActivity.this,
-                            "No se pudieron cargar los comunicados. Código: "
+                            "Error al cargar comunicados. Código: "
                                     + response.code(),
                             Toast.LENGTH_SHORT
                     ).show();
@@ -226,14 +277,38 @@ DashboardResidenteActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Comunicado>> call, Throwable t) {
                 tvCantidadComunicados.setText("--");
-
-                Toast.makeText(
-                        DashboardResidenteActivity.this,
-                        "No se pudo conectar con el servidor.",
-                        Toast.LENGTH_SHORT
-                ).show();
+                tvTituloComunicado.setText(
+                        "No se pudo conectar con el servidor"
+                );
             }
         });
+
+    }
+
+    private String resumirContenido(String contenido) {
+        if (contenido == null || contenido.trim().isEmpty()) {
+            return "Este comunicado no tiene contenido.";
+        }
+
+        // Unifica espacios y saltos de línea.
+        String texto = contenido.trim().replaceAll("\\s+", " ");
+        String[] palabras = texto.split(" ");
+
+        if (palabras.length <= 10) {
+            return texto;
+        }
+
+        StringBuilder resumen = new StringBuilder();
+
+        for (int i = 0; i < 10; i++) {
+            if (i > 0) {
+                resumen.append(" ");
+            }
+
+            resumen.append(palabras[i]);
+        }
+
+        return resumen.append("...").toString();
     }
     @Override
     public void onBackPressed() {
