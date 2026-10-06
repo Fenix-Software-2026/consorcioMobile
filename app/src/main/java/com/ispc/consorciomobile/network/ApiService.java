@@ -1,7 +1,10 @@
 package com.ispc.consorciomobile.network;
+
+import com.ispc.consorciomobile.Comunicado;
+import com.ispc.consorciomobile.PerfilResidente;
+import com.ispc.consorciomobile.Reclamo;
 import com.ispc.consorciomobile.model.Residente;
 import com.ispc.consorciomobile.model.Unidad;
-import com.ispc.consorciomobile.PerfilResidente;
 
 import java.util.List;
 
@@ -11,7 +14,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiService {
-    @GET ("api/reclamos/")
+
+    @GET("api/reclamos/")
     Call<Object> probarConexion();
 
     @POST("api/login/")
@@ -28,4 +32,10 @@ public interface ApiService {
 
     @POST("api/usuario/")
     Call<Residente> crearResidente(@Body Residente residente);
+
+    @GET("api/reclamos/")
+    Call<List<Reclamo>> obtenerReclamos();
+
+    @GET("api/comunicados/")
+    Call<List<Comunicado>> obtenerComunicados();
 }

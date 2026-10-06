@@ -21,12 +21,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.util.List;
+
+import android.view.View;
+
 public class
 DashboardResidenteActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
 
     private TextView tvSaludo;
+
+    private TextView tvCantidadReclamos;
+
+    private TextView tvCantidadComunicados;
+
+    private TextView tvTituloComunicado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +45,24 @@ DashboardResidenteActivity extends AppCompatActivity {
 
         tvSaludo = findViewById(R.id.tvSaludo);
         cargarPerfilResidente();
+
+        tvCantidadReclamos = findViewById(R.id.tvCantidadReclamos);
+        cargarReclamosActivos();
+
+        tvCantidadComunicados = findViewById(R.id.tvCantidadComunicados);
+        tvTituloComunicado = findViewById(R.id.tvTituloComunicado);
+
+        View cardUltimoComunicado = findViewById(R.id.cardUltimoComunicado);
+
+        cardUltimoComunicado.setOnClickListener(view -> {
+            Intent intent = new Intent(
+                    DashboardResidenteActivity.this,
+                    ComunicadosResidenteActivity.class
+            );
+            startActivity(intent);
+        });
+
+        cargarCantidadComunicados();
 
         drawerLayout = findViewById(R.id.drawerLayout);
 
@@ -136,6 +164,153 @@ DashboardResidenteActivity extends AppCompatActivity {
                 ).show();
             }
         });
+    }
+
+    private void cargarReclamosActivos() {
+        ApiService apiService = RetrofitClient
+                .getRetrofitInstance(this)
+                .create(ApiService.class);
+
+        apiService.obtenerReclamos().enqueue(new Callback<List<Reclamo>>() {
+            @Override
+            public void onResponse(
+                    Call<List<Reclamo>> call,
+                    Response<List<Reclamo>> response
+            ) {
+                if (response.isSuccessful() && response.body() != null) {
+                    int cantidadActivos = 0;
+
+                    for (Reclamo reclamo : response.body()) {
+                        String estado = reclamo.getEstado();
+
+                        if ("pendiente".equalsIgnoreCase(estado)
+                                || "en_proceso".equalsIgnoreCase(estado)) {
+                            cantidadActivos++;
+                        }
+                    }
+
+                    tvCantidadReclamos.setText(String.valueOf(cantidadActivos));
+                } else {
+                    tvCantidadReclamos.setText("--");
+
+                    Toast.makeText(
+                            DashboardResidenteActivity.this,
+                            "No se pudieron cargar los reclamos. Código: "
+                                    + response.code(),
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Reclamo>> call, Throwable t) {
+                tvCantidadReclamos.setText("--");
+
+                Toast.makeText(
+                        DashboardResidenteActivity.this,
+                        "No se pudo conectar con el servidor.",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
+    }
+
+    private void cargarCantidadComunicados() {
+        ApiService apiService = RetrofitClient
+                .getRetrofitInstance(this)
+                .create(ApiService.class);
+
+        apiService.obtenerComunicados().enqueue(new Callback<List<Comunicado>>() {
+            @Override
+            public void onResponse(
+                    Call<List<Comunicado>> call,
+                    Response<List<Comunicado>> response
+            ) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Comunicado> comunicados = response.body();
+
+                    // Actualiza el número de la tarjeta de resumen.
+                    tvCantidadComunicados.setText(
+                            String.valueOf(comunicados.size())
+                    );
+
+                    // Si la lista está vacía, no hay un comunicado para mostrar.
+                    if (comunicados.isEmpty()) {
+                        tvTituloComunicado.setText(
+                                "No hay comunicados recientes"
+                        );
+                        return;
+                    }
+
+                    // Busca el comunicado con la fecha de publicación más reciente.
+                    Comunicado ultimo = comunicados.get(0);
+
+                    for (Comunicado comunicado : comunicados) {
+                        String fecha = comunicado.getFechaPublicacion();
+                        String fechaUltimo = ultimo.getFechaPublicacion();
+
+                        if (fecha != null
+                                && (fechaUltimo == null
+                                || fecha.compareTo(fechaUltimo) > 0)) {
+                            ultimo = comunicado;
+                        }
+                    }
+
+                    // Muestra un resumen del contenido del último comunicado.
+                    tvTituloComunicado.setText(
+                            resumirContenido(ultimo.getTitulo())
+                    );
+
+                } else {
+                    tvCantidadComunicados.setText("--");
+                    tvTituloComunicado.setText(
+                            "No se pudieron cargar los comunicados"
+                    );
+
+                    Toast.makeText(
+                            DashboardResidenteActivity.this,
+                            "Error al cargar comunicados. Código: "
+                                    + response.code(),
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comunicado>> call, Throwable t) {
+                tvCantidadComunicados.setText("--");
+                tvTituloComunicado.setText(
+                        "No se pudo conectar con el servidor"
+                );
+            }
+        });
+
+    }
+
+    private String resumirContenido(String contenido) {
+        if (contenido == null || contenido.trim().isEmpty()) {
+            return "Este comunicado no tiene contenido.";
+        }
+
+        // Unifica espacios y saltos de línea.
+        String texto = contenido.trim().replaceAll("\\s+", " ");
+        String[] palabras = texto.split(" ");
+
+        if (palabras.length <= 10) {
+            return texto;
+        }
+
+        StringBuilder resumen = new StringBuilder();
+
+        for (int i = 0; i < 10; i++) {
+            if (i > 0) {
+                resumen.append(" ");
+            }
+
+            resumen.append(palabras[i]);
+        }
+
+        return resumen.append("...").toString();
     }
     @Override
     public void onBackPressed() {
