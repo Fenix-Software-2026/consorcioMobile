@@ -9,6 +9,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.ispc.consorciomobile.network.ApiService;
+import com.ispc.consorciomobile.network.RetrofitClient;
 
 import android.content.Intent;
 
@@ -122,7 +124,7 @@ DashboardResidenteActivity extends AppCompatActivity {
 
     private void cargarPerfilResidente() {
         ApiService apiService = RetrofitClient
-                .getRetrofitInstance(this)
+                .getRetrofitInstance()
                 .create(ApiService.class);
 
         apiService.obtenerMiPerfil().enqueue(new Callback<PerfilResidente>() {

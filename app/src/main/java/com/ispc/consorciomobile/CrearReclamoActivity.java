@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.ispc.consorciomobile.network.ApiService;
+import com.ispc.consorciomobile.network.RetrofitClient;
+
 public class CrearReclamoActivity extends AppCompatActivity {
 
     @Override
@@ -22,7 +25,7 @@ public class CrearReclamoActivity extends AppCompatActivity {
 
         ApiService apiService =
                 RetrofitClient
-                        .getRetrofitInstance(this)
+                        .getRetrofitInstance()
                         .create(ApiService.class);
         Call<Object> call = apiService.probarConexion();
         call.enqueue(new Callback<Object>() {

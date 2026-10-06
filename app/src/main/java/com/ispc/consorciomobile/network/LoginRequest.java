@@ -1,9 +1,8 @@
-package com.ispc.consorciomobile;
+package com.ispc.consorciomobile.network;
 
 public class LoginRequest {
-
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
 
     public LoginRequest(String username, String password) {
         this.username = username;

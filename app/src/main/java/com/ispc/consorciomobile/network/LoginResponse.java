@@ -1,7 +1,6 @@
-package com.ispc.consorciomobile;
+package com.ispc.consorciomobile.network;
 
 public class LoginResponse {
-
     private String access;
     private String refresh;
 

@@ -16,7 +16,7 @@
             android:name=".ContactActivity"
             android:exported="false" />
         <activity
-            android:name=".UsuariosAdmin"
+            android:name=".AltaResidente"
             android:exported="false" />
         <activity
             android:name=".MiPerfilActivity"
