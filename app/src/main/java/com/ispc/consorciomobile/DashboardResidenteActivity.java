@@ -168,7 +168,7 @@ DashboardResidenteActivity extends AppCompatActivity {
 
     private void cargarReclamosActivos() {
         ApiService apiService = RetrofitClient
-                .getRetrofitInstance(this)
+                .getRetrofitInstance()
                 .create(ApiService.class);
 
         apiService.obtenerReclamos().enqueue(new Callback<List<Reclamo>>() {
@@ -217,7 +217,7 @@ DashboardResidenteActivity extends AppCompatActivity {
 
     private void cargarCantidadComunicados() {
         ApiService apiService = RetrofitClient
-                .getRetrofitInstance(this)
+                .getRetrofitInstance()
                 .create(ApiService.class);
 
         apiService.obtenerComunicados().enqueue(new Callback<List<Comunicado>>() {
