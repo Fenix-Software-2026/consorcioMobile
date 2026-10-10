@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.ispc.consorciomobile.network.ApiService;
 import com.ispc.consorciomobile.network.RetrofitClient;
@@ -22,6 +23,9 @@ public class CrearReclamoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_reclamo);
+
+        TextView txtTitulo = findViewById(R.id.txtTituloBarra);
+        txtTitulo.setText("Mis reclamos");
 
         ApiService apiService =
                 RetrofitClient

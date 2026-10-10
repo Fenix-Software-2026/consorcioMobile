@@ -6,22 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".CrearReclamoActivity">
 
-    <TextView
-        android:id="@+id/tvTituloReclamos"
-        style="@style/Titulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@color/naranja"
-        android:padding="16dp"
-        android:text="Crear Reclamo"
-        android:textAlignment="center"
-        android:textColor="@color/negro"
-        android:minHeight="48dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+    <!-- BARRA SUPERIOR -->
+    <include
+        layout="@layout/barra_personalizada"
+        android:id="@+id/miToolbar"/>
 
     <EditText
         android:id="@+id/etTituloCrearReclamo"
@@ -36,7 +24,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTituloReclamos" />
+        app:layout_constraintTop_toBottomOf="@id/miToolbar" />
 
     <Spinner
         android:id="@+id/spCategoriaCrearReclamo"
