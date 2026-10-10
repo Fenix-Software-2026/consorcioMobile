@@ -16,7 +16,10 @@ import retrofit2.http.POST;
 public interface ApiService {
 
     @GET("api/reclamos/")
-    Call<Object> probarConexion();
+    Call<Reclamo> probarConexion();
+
+    @POST("api/reclamos/")
+    Call<Reclamo> crearReclamo(@Body Reclamo reclamo);
 
     @POST("api/login/")
     Call<LoginResponse> iniciarSesion(@Body LoginRequest request);

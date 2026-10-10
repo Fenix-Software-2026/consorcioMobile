@@ -1,4 +1,4 @@
-package com.ispc.consorciomobile;
+package com.ispc.consorciomobile.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ispc.consorciomobile.R;
 import com.ispc.consorciomobile.model.Reclamo;
 
 import java.util.List;
