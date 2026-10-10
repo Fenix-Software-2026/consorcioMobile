@@ -1,6 +1,7 @@
 package com.ispc.consorciomobile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import java.util.List;
 import android.util.Log;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,11 +14,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ispc.consorciomobile.model.Reclamo;
 import com.ispc.consorciomobile.network.ApiService;
 import com.ispc.consorciomobile.network.RetrofitClient;
 
 public class CrearReclamoActivity extends AppCompatActivity {
+    private static final String TAG = "CREAR_RECLAMO";
+
+    Button btnCrearReclamo;
+    Button btnCancelarReclamo;
+    EditText etTituloCrearReclamo;
+    Spinner spCategoriaCrearReclamo;
+    EditText etDescripcionCrearReclamo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,36 +36,9 @@ public class CrearReclamoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crear_reclamo);
 
         TextView txtTitulo = findViewById(R.id.txtTituloBarra);
-        txtTitulo.setText("Mis reclamos");
+        txtTitulo.setText(" Crear Reclamo");
 
-        ApiService apiService =
-                RetrofitClient
-                        .getRetrofitInstance()
-                        .create(ApiService.class);
-        Call<Object> call = apiService.probarConexion();
-        call.enqueue(new Callback<Object>() {
-            @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
-                Log.d("RENDER_TEST",
-                        "codigo HTTP: " + response.code());
-                Log.d("RENDER_TEST",
-                        "Respuesta:" + response.message());
-            }
-            @Override
-            public void onFailure(Call<Object> call, Throwable t){
-                Log.e("RENDER-TEST",
-                        "Error de conexion: " + t.getMessage());
-            }
-        });
-
-        Button btnCrearReclamo;
-        Button btnCancelarReclamo;
-        EditText etTituloCrearReclamo;
-        Spinner spCategoriaCrearReclamo;
-        EditText etDescripcionCrearReclamo;
-
-
-        etTituloCrearReclamo= findViewById(R.id.etTituloCrearReclamo);
+        etTituloCrearReclamo = findViewById(R.id.etTituloCrearReclamo);
         spCategoriaCrearReclamo = findViewById(R.id.spCategoriaCrearReclamo);
         etDescripcionCrearReclamo = findViewById(R.id.etDescripcionCrearReclamo);
 
@@ -75,32 +59,105 @@ public class CrearReclamoActivity extends AppCompatActivity {
                 "Otros"
         };
 
-        ArrayAdapter <String> adapter = new ArrayAdapter<>(
-                this , androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, categorias
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, categorias
         );
 
-        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spCategoriaCrearReclamo.setAdapter(adapter);
 
         btnCrearReclamo.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CrearReclamoActivity.this, DashboardResidenteActivity.class);
+                enviarReclamo();
+            }
+        });
+
+        btnCancelarReclamo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CrearReclamoActivity.this, MisReclamosActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
-             btnCancelarReclamo.setOnClickListener(new View.OnClickListener() {
+    }
 
-                @Override
-                public void onClick (View v){
-                    Intent intent = new Intent(CrearReclamoActivity.this, DashboardResidenteActivity.class);
+    private void enviarReclamo() {
+        String titulo = etTituloCrearReclamo.getText().toString().trim();
+        String categoria = spCategoriaCrearReclamo.getSelectedItem().toString();
+        String descripcion = etDescripcionCrearReclamo.getText().toString().trim();
+
+        if (titulo.isEmpty() || descripcion.isEmpty()) {
+            Toast.makeText(this, "Por favor completá todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (categoria.equals("Seleccionar categoría")) {
+            Toast.makeText(this, "Por favor elegí una categoría válida", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String categoriaKey = obtenerClaveCategoria(categoria);
+
+        Reclamo nuevoReclamo = new Reclamo();
+        nuevoReclamo.setTitulo(titulo);
+        nuevoReclamo.setDescripcion(descripcion);
+        nuevoReclamo.setCategoria(categoriaKey);
+
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+
+        apiService.crearReclamo(nuevoReclamo).enqueue(new Callback<Reclamo>() {
+            @Override
+            public void onResponse(Call<Reclamo> call, Response<Reclamo> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(CrearReclamoActivity.this, "¡Reclamo creado con éxito!", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(CrearReclamoActivity.this, MisReclamosActivity.class);
                     startActivity(intent);
                     finish();
+                } else {
+                    try {
+                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "Sin cuerpo";
+                        Log.e(TAG, "Error HTTP 400 detalle: " + errorBody);
+                        Toast.makeText(CrearReclamoActivity.this, "Error 400: " + errorBody, Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
+            }
+
+            @Override
+            public void onFailure(Call<Reclamo> call, Throwable t) {
+                Log.e(TAG, "Falla de red: " + t.getMessage());
+                Toast.makeText(CrearReclamoActivity.this, "Fallo de conexión: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
         });
     }
 
-}
+        private String obtenerClaveCategoria (String textoSeleccionado){
+            switch (textoSeleccionado) {
+                case "Plomería":
+                    return "plomeria";
+                case "Electricidad":
+                    return "electricidad";
+                case "Gas":
+                    return "gas";
+                case "Humedad / Filtraciones":
+                    return "humedad";
+                case "Ascensor":
+                    return "ascensor";
+                case "Limpieza":
+                    return "limpieza";
+                case "Seguridad / Accesos":
+                    return "seguridad";
+                case "Ruidos molestos":
+                    return "ruidos";
+                case "Internet / Antena":
+                    return "internet";
+                default:
+                    return "otros";
+            }
+        }
+    }

@@ -60,4 +60,44 @@ public class Reclamo {
     public int getUsuario() {
         return usuario;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
+    }
+
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public void setFechaActualizacion(String fechaActualizacion) {
+        this.fechaActualizacion = fechaActualizacion;
+    }
+
+    public void setUnidad(int unidad) {
+        this.unidad = unidad;
+    }
+
+    public void setUsuario(int usuario) {
+        this.usuario = usuario;
+    }
 }

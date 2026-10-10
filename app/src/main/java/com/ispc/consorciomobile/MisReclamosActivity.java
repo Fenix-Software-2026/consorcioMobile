@@ -1,7 +1,5 @@
 package com.ispc.consorciomobile;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import com.ispc.consorciomobile.model.Reclamo;
-import com.ispc.consorciomobile.ReclamoAdapter;
+import com.ispc.consorciomobile.adapter.ReclamoAdapter;
 
 
 import com.ispc.consorciomobile.network.ApiService;
