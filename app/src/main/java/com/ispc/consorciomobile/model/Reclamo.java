@@ -1,4 +1,4 @@
-package com.ispc.consorciomobile;
+package com.ispc.consorciomobile.model;
 
 import com.google.gson.annotations.SerializedName;
 

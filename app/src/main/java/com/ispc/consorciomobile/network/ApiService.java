@@ -2,7 +2,7 @@ package com.ispc.consorciomobile.network;
 
 import com.ispc.consorciomobile.Comunicado;
 import com.ispc.consorciomobile.PerfilResidente;
-import com.ispc.consorciomobile.Reclamo;
+import com.ispc.consorciomobile.model.Reclamo;
 import com.ispc.consorciomobile.model.Residente;
 import com.ispc.consorciomobile.model.Unidad;
 
