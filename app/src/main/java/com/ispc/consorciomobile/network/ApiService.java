@@ -2,7 +2,7 @@ package com.ispc.consorciomobile.network;
 
 import com.ispc.consorciomobile.Comunicado;
 import com.ispc.consorciomobile.PerfilResidente;
-import com.ispc.consorciomobile.Reclamo;
+import com.ispc.consorciomobile.model.Reclamo;
 import com.ispc.consorciomobile.model.Residente;
 import com.ispc.consorciomobile.model.Unidad;
 
@@ -16,7 +16,10 @@ import retrofit2.http.POST;
 public interface ApiService {
 
     @GET("api/reclamos/")
-    Call<Object> probarConexion();
+    Call<Reclamo> probarConexion();
+
+    @POST("api/reclamos/")
+    Call<Reclamo> crearReclamo(@Body Reclamo reclamo);
 
     @POST("api/login/")
     Call<LoginResponse> iniciarSesion(@Body LoginRequest request);

@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.ispc.consorciomobile.model.Reclamo;
 import com.ispc.consorciomobile.network.ApiService;
 import com.ispc.consorciomobile.network.RetrofitClient;
 
