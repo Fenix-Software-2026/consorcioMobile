@@ -1,14 +1,16 @@
 package com.ispc.consorciomobile.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ispc.consorciomobile.DetalleReclamoActivity;
 import com.ispc.consorciomobile.R;
 import com.ispc.consorciomobile.model.Reclamo;
 
@@ -35,10 +37,35 @@ public class ReclamoAdapter extends RecyclerView.Adapter<ReclamoAdapter.ReclamoV
     public void onBindViewHolder(@NonNull ReclamoViewHolder holder, int position) {
         Reclamo reclamo = listaReclamos.get(position);
 
-        holder.tvTitulo.setText(reclamo.getTitulo() != null ? reclamo.getTitulo() : "Sin título");
-        holder.tvDescripcion.setText(reclamo.getDescripcion() != null ? reclamo.getDescripcion() : "Sin descripción");
-        holder.tvEstado.setText(reclamo.getEstado() != null ? reclamo.getEstado() : "Registrado");
-        holder.tvFecha.setText(reclamo.getFechaCreacion() != null ? reclamo.getFechaCreacion() : "");
+        if (holder.tvTitulo != null) {
+            holder.tvTitulo.setText(reclamo.getTitulo() != null ? reclamo.getTitulo() : "Sin título");
+        }
+        if (holder.tvDescripcion != null) {
+            holder.tvDescripcion.setText(reclamo.getDescripcion() != null ? reclamo.getDescripcion() : "Sin descripción");
+        }
+        if (holder.tvEstado != null) {
+            holder.tvEstado.setText(reclamo.getEstado() != null ? reclamo.getEstado() : "Registrado");
+        }
+        if (holder.tvFecha != null) {
+            holder.tvFecha.setText(reclamo.getFechaCreacion() != null ? reclamo.getFechaCreacion() : "");
+        }
+        if (holder.tvCategoria != null) {
+            holder.tvCategoria.setText(reclamo.getCategoria() != null ? reclamo.getCategoria() : "General");
+        }
+
+// Evento de clic en la tarjeta para abrir el detalle
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetalleReclamoActivity.class);
+                intent.putExtra("titulo", reclamo.getTitulo());
+                intent.putExtra("descripcion", reclamo.getDescripcion());
+                intent.putExtra("categoria", reclamo.getCategoria());
+                intent.putExtra("estado", reclamo.getEstado());
+                intent.putExtra("fecha", reclamo.getFechaCreacion());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -47,7 +74,7 @@ public class ReclamoAdapter extends RecyclerView.Adapter<ReclamoAdapter.ReclamoV
     }
 
     public static class ReclamoViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitulo, tvDescripcion, tvEstado, tvUbicacion, tvFecha, tvCategoria;
+        TextView tvTitulo, tvDescripcion, tvEstado, tvFecha, tvCategoria;
 
         public ReclamoViewHolder(@NonNull View itemView) {
             super(itemView);
