@@ -45,6 +45,9 @@
         <activity
             android:name=".MisReclamosActivity"
             android:exported="false" />
+
+        <activity android:name=".DetalleReclamoActivity"
+            android:exported="false"/>
         <activity
             android:name=".ComunicadosAdminActivity"
             android:exported="false" />
