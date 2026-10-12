@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Fila de un comunicado en el historial del panel admin.
+    Replica el estilo de los ejemplos que había fijos:
+    urgentes con fondo naranjaclaro, normales con fondo gris.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutComunicadoAdmin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gris_fondo_input"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:layout_marginBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- TÍTULO -->
+        <TextView
+            android:id="@+id/tvTituloComunicadoAdmin"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Título del comunicado"
+            android:textStyle="bold"
+            android:textColor="@color/negro"
+            android:textSize="14sp" />
+
+        <!-- ACCIONES (se conectan a la API en el paso de edición/borrado) -->
+        <Button
+            android:id="@+id/btnEditarComunicado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
+            android:text="Editar"
+            android:textSize="12sp"
+            android:backgroundTint="@color/negro"
+            android:textColor="@color/white"
+            android:paddingHorizontal="12dp" />
+
+        <Button
+            android:id="@+id/btnBorrarComunicado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
+            android:text="Borrar"
+            android:textSize="12sp"
+            android:backgroundTint="@color/rojo"
+            android:textColor="@color/white"
+            android:paddingHorizontal="12dp" />
+    </LinearLayout>
+
+    <!-- CONTENIDO -->
+    <TextView
+        android:id="@+id/tvContenidoComunicadoAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contenido del comunicado..."
+        android:textColor="@color/negro"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp" />
+
+    <!-- FECHA DE PUBLICACIÓN -->
+    <TextView
+        android:id="@+id/tvFechaComunicadoAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Publicado: --/--/----"
+        android:textColor="@color/negro"
+        android:textSize="10sp"
+        android:textStyle="italic"
+        android:layout_marginTop="6dp" />
+</LinearLayout>
