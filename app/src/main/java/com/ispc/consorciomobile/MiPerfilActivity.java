@@ -112,15 +112,12 @@ public class MiPerfilActivity extends AppCompatActivity {
 
     }
 
-        //Btn Cerrar Sesion
-        private void cerrarSesionSegura() {
-        // Limpiamos cualquier preferencia de sesión local si existiera
-        SharedPreferences preferences = getSharedPreferences("SesionPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.apply();
+    //Btn Cerrar Sesion
+    private void cerrarSesionSegura() {
+        // 1. Limpiamos el token activo en la memoria de la app
+        TokenManager.limpiarToken();
 
-        // Redireccionar al Login limpiando el historial de actividades
+        // 2. Redireccionar al Login limpiando el historial de actividades
         Intent intent = new Intent(MiPerfilActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

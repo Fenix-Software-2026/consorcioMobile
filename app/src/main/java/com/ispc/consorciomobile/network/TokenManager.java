@@ -19,6 +19,7 @@ public class TokenManager {
 
     public static synchronized void limpiarToken() {
         tokenActual = "";
+        usernameActual="";
     }
 
     public static synchronized void guardarUsername(String username) {
