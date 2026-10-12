@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.ispc.consorciomobile.model.Reclamo;
+import com.ispc.consorciomobile.model.Residente;
 import com.ispc.consorciomobile.network.ApiService;
 import com.ispc.consorciomobile.network.RetrofitClient;
 
@@ -128,14 +129,14 @@ DashboardResidenteActivity extends AppCompatActivity {
                 .getRetrofitInstance()
                 .create(ApiService.class);
 
-        apiService.obtenerMiPerfil().enqueue(new Callback<PerfilResidente>() {
+        apiService.obtenerMiPerfil().enqueue(new Callback<Residente>() {
             @Override
             public void onResponse(
-                    Call<PerfilResidente> call,
-                    Response<PerfilResidente> response
+                    Call<Residente> call,
+                    Response<Residente> response
             ) {
                 if (response.isSuccessful() && response.body() != null) {
-                    PerfilResidente perfil = response.body();
+                    Residente perfil = response.body();
                     String nombre = perfil.getNombre();
 
                     if (nombre == null || nombre.trim().isEmpty()) {
@@ -157,7 +158,7 @@ DashboardResidenteActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PerfilResidente> call, Throwable t) {
+            public void onFailure(Call<Residente> call, Throwable t) {
                 Toast.makeText(
                         DashboardResidenteActivity.this,
                         "No se pudo conectar con el servidor.",

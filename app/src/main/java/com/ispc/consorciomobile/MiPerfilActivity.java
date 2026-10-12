@@ -5,89 +5,132 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ispc.consorciomobile.model.CambioContrasenaRequest;
+import com.ispc.consorciomobile.model.Residente;
+import com.ispc.consorciomobile.network.ApiService;
+import com.ispc.consorciomobile.network.RetrofitClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MiPerfilActivity extends AppCompatActivity {
+    private TextView txtTituloBarra, txtNombreUsuarioPerfil, txtEmailPerfil; // Referencias para datos dinámicos
+    private EditText etContrasenaActual, etNuevaContrasena, etRepetirContrasena;
+    private Button btnActualizarContrasena, btnCerrarSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mi_perfil);
 
+        // Configuración de la barra superior personalizada
         TextView btnVolver = findViewById(R.id.btnVolverBarra);
-        btnVolver.setOnClickListener(new View.OnClickListener() {
+        btnVolver.setOnClickListener(view -> finish());
+        txtTituloBarra = findViewById(R.id.txtTituloBarra);
+        txtTituloBarra.setText("Mi Perfil");
+
+        etContrasenaActual = findViewById(R.id.etContrasenaActual);
+        etNuevaContrasena = findViewById(R.id.etNuevaContrasena);
+        etRepetirContrasena = findViewById(R.id.etRepetirContrasena);
+
+        btnActualizarContrasena = findViewById(R.id.btnActualizarContrasena);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+
+        // 1. Recibir el username enviado por Intent desde la pantalla anterior
+        String username = getIntent().getStringExtra("username");
+        if (username != null && !username.isEmpty()) {
+            if (txtNombreUsuarioPerfil != null) {
+                txtNombreUsuarioPerfil.setText(username);
+            }
+        }
+        // 2. Lógica para actualizar la contraseña
+        btnActualizarContrasena.setOnClickListener(view -> validarYActualizarContrasena());
+
+        // 3. Lógica para cerrar sesión de forma segura
+        btnCerrarSesion.setOnClickListener(view -> cerrarSesionSegura());
+    }
+
+
+    private void validarYActualizarContrasena() {
+        String passActual = etContrasenaActual.getText().toString().trim();
+        String passNueva = etNuevaContrasena.getText().toString().trim();
+        String passRepetir = etRepetirContrasena.getText().toString().trim();
+
+        // Regex de seguridad: mínimo 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial
+        String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!_.-])(?=\\S+$).{8,}$";
+
+        // Validación de campos vacíos incluyendo la repetición
+        if (passActual.isEmpty() || passNueva.isEmpty() || passRepetir.isEmpty()) {
+            Toast.makeText(MiPerfilActivity.this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validación de coincidencia de contraseñas nuevas
+        if (!passNueva.equals(passRepetir)) {
+            Toast.makeText(MiPerfilActivity.this, "Las nuevas contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validación de complejidad de la contraseña
+        if (!passNueva.matches(PASSWORD_REGEX)) {
+            Toast.makeText(MiPerfilActivity.this, "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // Preparamos el cuerpo de la petición PATCH
+        CambioContrasenaRequest cambioRequest = new CambioContrasenaRequest(passActual, passNueva);
+
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        btnActualizarContrasena.setEnabled(false);
+
+        apiService.actualizarMiPerfil(cambioRequest).enqueue(new Callback<Residente>() {
             @Override
-            public void onClick(View view) {
-                finish();
+            public void onResponse(Call<Residente> call, Response<Residente> response) {
+                btnActualizarContrasena.setEnabled(true);
+                if (response.isSuccessful()) {
+                    Toast.makeText(MiPerfilActivity.this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show();
+                    // Limpiamos los campos del formulario tras el éxito
+                    etContrasenaActual.setText("");
+                    etNuevaContrasena.setText("");
+                    etRepetirContrasena.setText("");
+                } else {
+                    Toast.makeText(MiPerfilActivity.this, "Error al actualizar contraseña. Verifica tu contraseña actual.", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Residente> call, Throwable t) {
+                btnActualizarContrasena.setEnabled(true);
+                Toast.makeText(MiPerfilActivity.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
-        //Cambio de texto a barra personalizada
-        TextView txtTitulo = findViewById(R.id.txtTituloBarra);
-        txtTitulo.setText("Mi Perfil");
-
-        //referencias de los textos
-        EditText etContrasenaActual = findViewById(R.id.etContrasenaActual);
-        EditText etNuevaContrasena = findViewById(R.id.etNuevaContrasena);
-        EditText etRepetirContrasena = findViewById(R.id.etRepetirContrasena);
-
-        //Btn actualizar contraseña
-        Button btnActualizar = findViewById(R.id.btnActualizarContrasena);
-        btnActualizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String passActual = etContrasenaActual.getText().toString().trim();
-                String passNueva = etNuevaContrasena.getText().toString().trim();
-                String passRepetir = etRepetirContrasena.getText().toString().trim();
-                //Regex min 8 caract con min, mayus numeros y caracter
-                String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!_.-])(?=\\S+$).{8,}$";
-
-                //TODO:Programar validacion
-                //campos vacios
-                if(passActual.isEmpty() || passNueva.isEmpty()){
-                    Toast.makeText(MiPerfilActivity.this,"Por favor, completa todos los campos",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                //coincidencia de pass
-                if(!passNueva.equals(passRepetir)){
-                    Toast.makeText(MiPerfilActivity.this,"Las nuevas contraseñas no coinciden",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                //ciber seguridad
-                if(!passNueva.matches((PASSWORD_REGEX))){
-                    Toast.makeText(MiPerfilActivity.this,"La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // TODO:conectar API
-                Toast.makeText(MiPerfilActivity.this,"Funcion en desarrollo",Toast.LENGTH_SHORT).show();
-            }
-        });
+    }
 
         //Btn Cerrar Sesion
-        Button btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
-        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO:ver nombre de la sesion
-                //borrar token
-                SharedPreferences preferences = getSharedPreferences("SesionPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.clear();
-                editor.apply();
+        private void cerrarSesionSegura() {
+        // Limpiamos cualquier preferencia de sesión local si existiera
+        SharedPreferences preferences = getSharedPreferences("SesionPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
 
-                //redireccion
-                Intent intent = new Intent(MiPerfilActivity.this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+        // Limpiar el token en memoria del interceptor de Retrofit
 
-                Toast.makeText(MiPerfilActivity.this, "Cerrando Sesión....", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
+
+        // Redireccionar al Login limpiando el historial de actividades
+        Intent intent = new Intent(MiPerfilActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+
+        Toast.makeText(MiPerfilActivity.this, "Cerrando Sesión...", Toast.LENGTH_SHORT).show();
+        finish();
     }
+
 }
