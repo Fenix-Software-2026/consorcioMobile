@@ -10,8 +10,11 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -41,4 +44,20 @@ public interface ApiService {
 
     @GET("api/comunicados/")
     Call<List<Comunicado>> obtenerComunicados();
+
+    // Detalle de un comunicado por su id (cualquier usuario autenticado).
+    @GET("api/comunicados/{id}/")
+    Call<Comunicado> obtenerComunicado(@Path("id") int id);
+
+    // Alta de comunicado: solo la puede hacer un administrador.
+    @POST("api/comunicados/")
+    Call<Comunicado> crearComunicado(@Body Comunicado comunicado);
+
+    // Edición completa: solo administrador.
+    @PUT("api/comunicados/{id}/")
+    Call<Comunicado> actualizarComunicado(@Path("id") int id, @Body Comunicado comunicado);
+
+    // Baja: solo administrador. Devuelve 204 sin cuerpo, por eso es Call<Void>.
+    @DELETE("api/comunicados/{id}/")
+    Call<Void> borrarComunicado(@Path("id") int id);
 }
