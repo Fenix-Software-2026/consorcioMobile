@@ -113,6 +113,19 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:minHeight="48dp"/>
+
+            <!-- Aparece solo cuando estamos editando un comunicado existente -->
+            <Button
+                android:id="@+id/btnCancelarEdicion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Cancelar edición"
+                android:backgroundTint="@color/negro"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:minHeight="48dp"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <!-- Historial de Comunicados -->
