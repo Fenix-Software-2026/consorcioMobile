@@ -1,17 +1,18 @@
 package com.ispc.consorciomobile.network;
 
 import com.ispc.consorciomobile.Comunicado;
-import com.ispc.consorciomobile.PerfilResidente;
 import com.ispc.consorciomobile.model.Reclamo;
 import com.ispc.consorciomobile.model.Residente;
 import com.ispc.consorciomobile.model.Unidad;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PATCH;
 import retrofit2.http.PUT;
@@ -37,7 +38,10 @@ public interface ApiService {
     Call<LoginResponse> iniciarSesion(@Body LoginRequest request);
 
     @GET("api/usuario/mi_perfil/")
-    Call<PerfilResidente> obtenerMiPerfil();
+    Call<Residente> obtenerMiPerfil();
+
+    @PATCH("api/usuario/mi_perfil/")
+    Call<Residente> actualizarMiPerfil(@Body Map<String, Object> datos);
 
     @GET("api/usuario/")
     Call<List<Residente>> obtenerResidentes();
