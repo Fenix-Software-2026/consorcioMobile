@@ -87,7 +87,10 @@ public class MisReclamosActivity extends AppCompatActivity {
                 public void onResponse(Call<List<Reclamo>> call, Response<List<Reclamo>> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         List<Reclamo> misReclamos = response.body();
-                        reclamoAdapter = new ReclamoAdapter(MisReclamosActivity.this, misReclamos);
+
+                        boolean esAdmin = getIntent().getBooleanExtra("ES_ADMIN", false);
+                        reclamoAdapter = new ReclamoAdapter(MisReclamosActivity.this, misReclamos, esAdmin);
+
                         Toast.makeText(MisReclamosActivity.this,
                                 "¡Éxito! Reclamos del usuario recibidos: " + misReclamos.size(),
                                 Toast.LENGTH_LONG).show();

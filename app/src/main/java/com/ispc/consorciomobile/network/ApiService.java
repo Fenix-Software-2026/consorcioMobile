@@ -12,14 +12,24 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PATCH;
+import retrofit2.http.Path;
+import java.util.Map;
+import retrofit2.http.Header;
 
 public interface ApiService {
 
     @GET("api/reclamos/")
-    Call<Reclamo> probarConexion();
+    Call<List<Reclamo>> probarConexion();
 
     @POST("api/reclamos/")
     Call<Reclamo> crearReclamo(@Body Reclamo reclamo);
+
+    @PATCH("api/reclamos/{id}/")
+    Call<Reclamo> actualizarEstadoReclamo(
+            @Path("id") int id,
+            @Body Map<String, String> body
+    );
 
     @POST("api/login/")
     Call<LoginResponse> iniciarSesion(@Body LoginRequest request);
