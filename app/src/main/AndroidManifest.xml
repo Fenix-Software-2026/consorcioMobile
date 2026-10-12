@@ -54,6 +54,9 @@
         <activity
             android:name=".ComunicadosResidenteActivity"
             android:exported="false" />
+        <activity
+            android:name=".DetalleComunicadoActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

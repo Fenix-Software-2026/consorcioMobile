@@ -1,6 +1,7 @@
 package com.ispc.consorciomobile.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.ispc.consorciomobile.Comunicado;
+import com.ispc.consorciomobile.DetalleComunicadoActivity;
 import com.ispc.consorciomobile.R;
 
 import java.util.List;
@@ -57,6 +59,19 @@ public class ComunicadoAdapter extends RecyclerView.Adapter<ComunicadoAdapter.Co
         holder.tvContenidoComunicado.setText(
                 comunicado.getContenido() != null ? comunicado.getContenido() : "Sin contenido");
         holder.tvFechaComunicado.setText("Publicado: " + formatearFecha(comunicado.getFechaPublicacion()));
+
+        // Evento de clic en la tarjeta para abrir el detalle, igual que en los reclamos
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetalleComunicadoActivity.class);
+                intent.putExtra("titulo", comunicado.getTitulo());
+                intent.putExtra("contenido", comunicado.getContenido());
+                intent.putExtra("fecha", comunicado.getFechaPublicacion());
+                intent.putExtra("urgente", comunicado.getEsUrgente());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -66,7 +81,8 @@ public class ComunicadoAdapter extends RecyclerView.Adapter<ComunicadoAdapter.Co
 
     // La API devuelve la fecha en formato ISO (2026-09-13T20:00:00Z);
     // acá la mostramos como 13/09/2026, igual que en los ejemplos anteriores.
-    private String formatearFecha(String fechaIso) {
+    // Es static para poder reutilizarla desde la pantalla de detalle.
+    public static String formatearFecha(String fechaIso) {
         if (fechaIso == null || fechaIso.isEmpty()) {
             return "--/--/----";
         }
