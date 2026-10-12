@@ -2,6 +2,7 @@ package com.ispc.consorciomobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -64,6 +65,14 @@ public class AltaResidente extends AppCompatActivity {
 
         TextView txtTitulo = findViewById(R.id.txtTituloBarra);
         txtTitulo.setText("Usuarios");
+
+        // Acceso al panel de comunicados. Es temporal: cuando esté listo el
+        // dashboard del administrador, este botón se mueve para allá.
+        Button btnGestionarComunicados = findViewById(R.id.btnGestionarComunicados);
+        btnGestionarComunicados.setOnClickListener(v -> {
+            Intent intent = new Intent(AltaResidente.this, ComunicadosAdminActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void cargarUnidades() {
