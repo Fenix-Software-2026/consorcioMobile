@@ -52,7 +52,8 @@ public class AuthRepository {
 
                             // Guardar el access token
                             TokenManager.guardarToken(loginResponse.getAccess());
-
+                            TokenManager.guardarUsername(username)
+                            ;
                             callback.onSuccess(rol, usernameToken);
 
                         } catch (Exception exception) {

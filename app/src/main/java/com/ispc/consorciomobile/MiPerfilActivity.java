@@ -14,13 +14,14 @@ import com.ispc.consorciomobile.model.CambioContrasenaRequest;
 import com.ispc.consorciomobile.model.Residente;
 import com.ispc.consorciomobile.network.ApiService;
 import com.ispc.consorciomobile.network.RetrofitClient;
+import com.ispc.consorciomobile.network.TokenManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MiPerfilActivity extends AppCompatActivity {
-    private TextView txtTituloBarra, txtNombreUsuarioPerfil, txtEmailPerfil; // Referencias para datos dinámicos
+    private TextView txtTituloBarra, txtNombreUsuarioConfig; // Referencias para datos dinámicos
     private EditText etContrasenaActual, etNuevaContrasena, etRepetirContrasena;
     private Button btnActualizarContrasena, btnCerrarSesion;
 
@@ -38,24 +39,22 @@ public class MiPerfilActivity extends AppCompatActivity {
         etContrasenaActual = findViewById(R.id.etContrasenaActual);
         etNuevaContrasena = findViewById(R.id.etNuevaContrasena);
         etRepetirContrasena = findViewById(R.id.etRepetirContrasena);
+        txtNombreUsuarioConfig = findViewById(R.id.txtNombreUsuarioConfig);
 
         btnActualizarContrasena = findViewById(R.id.btnActualizarContrasena);
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
 
-        // 1. Recibir el username enviado por Intent desde la pantalla anterior
-        String username = getIntent().getStringExtra("username");
+        //Obtenemos el username guardado globalmente en el TokenManager
+        String username = TokenManager.obtenerUsername();
         if (username != null && !username.isEmpty()) {
-            if (txtNombreUsuarioPerfil != null) {
-                txtNombreUsuarioPerfil.setText(username);
+            if (txtNombreUsuarioConfig != null) {
+                txtNombreUsuarioConfig.setText(username);
             }
         }
-        // 2. Lógica para actualizar la contraseña
-        btnActualizarContrasena.setOnClickListener(view -> validarYActualizarContrasena());
 
-        // 3. Lógica para cerrar sesión de forma segura
+        btnActualizarContrasena.setOnClickListener(view -> validarYActualizarContrasena());
         btnCerrarSesion.setOnClickListener(view -> cerrarSesionSegura());
     }
-
 
     private void validarYActualizarContrasena() {
         String passActual = etContrasenaActual.getText().toString().trim();
@@ -120,9 +119,6 @@ public class MiPerfilActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.apply();
-
-        // Limpiar el token en memoria del interceptor de Retrofit
-
 
         // Redireccionar al Login limpiando el historial de actividades
         Intent intent = new Intent(MiPerfilActivity.this, LoginActivity.class);
