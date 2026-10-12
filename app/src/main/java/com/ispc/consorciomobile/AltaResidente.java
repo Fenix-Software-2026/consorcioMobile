@@ -2,6 +2,7 @@ package com.ispc.consorciomobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -42,6 +43,7 @@ public class AltaResidente extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alta_residente);
 
+
         // Relacionar cada control del XML con una variable Java.
         etUsername = findViewById(R.id.etUsuarioInquilino);
         etFirstName = findViewById(R.id.etNombreInquilino);
@@ -61,7 +63,16 @@ public class AltaResidente extends AppCompatActivity {
         });
         btnGuardar.setOnClickListener(v -> registrarResidente());
 
+        Button btnIrAReclamos = findViewById(R.id.btnIrAReclamosTest);
 
+        if (btnIrAReclamos != null) {
+            btnIrAReclamos.setOnClickListener(v -> {
+                // Redirige al listado de reclamos mandando la bandera de Admin
+                Intent intent = new Intent(AltaResidente.this, MisReclamosActivity.class);
+                intent.putExtra("ES_ADMIN", true);
+                startActivity(intent);
+            });
+        }
         TextView txtTitulo = findViewById(R.id.txtTituloBarra);
         txtTitulo.setText("Usuarios");
     }
@@ -255,4 +266,5 @@ public class AltaResidente extends AppCompatActivity {
             return "revisá los datos ingresados";
         }
     }
+
 }

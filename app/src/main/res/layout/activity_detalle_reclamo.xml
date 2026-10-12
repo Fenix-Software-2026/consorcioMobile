@@ -92,6 +92,41 @@
                 android:textColor="#333333"
                 android:textSize="15sp" />
 
+            <!-- Esta parte sólo la ve el admin -->
+            <LinearLayout
+                android:id="@+id/panelAdminEstado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="24dp"
+                android:padding="16dp"
+                android:background="#FFFFFF"
+                android:elevation="2dp"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gestión de Estado (Administrador)"
+                    android:textColor="@color/negro"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <Spinner
+                    android:id="@+id/spCambiarEstado"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp" />
+
+                <Button
+                    android:id="@+id/btnGuardarEstadoAdmin"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Actualizar Estado"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/naranja" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

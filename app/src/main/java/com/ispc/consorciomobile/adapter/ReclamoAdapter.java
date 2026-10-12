@@ -20,10 +20,12 @@ public class ReclamoAdapter extends RecyclerView.Adapter<ReclamoAdapter.ReclamoV
 
     private Context context;
     private List<Reclamo> listaReclamos;
+    private boolean esAdmin;
 
-    public ReclamoAdapter(Context context, List<Reclamo> listaReclamos) {
+    public ReclamoAdapter(Context context, List<Reclamo> listaReclamos, boolean esAdmin) {
         this.context = context;
         this.listaReclamos = listaReclamos;
+        this.esAdmin = esAdmin;
     }
 
     @NonNull
@@ -58,11 +60,13 @@ public class ReclamoAdapter extends RecyclerView.Adapter<ReclamoAdapter.ReclamoV
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetalleReclamoActivity.class);
+                intent.putExtra("id", reclamo.getId());
                 intent.putExtra("titulo", reclamo.getTitulo());
                 intent.putExtra("descripcion", reclamo.getDescripcion());
                 intent.putExtra("categoria", reclamo.getCategoria());
                 intent.putExtra("estado", reclamo.getEstado());
                 intent.putExtra("fecha", reclamo.getFechaCreacion());
+                intent.putExtra("ES_ADMIN", esAdmin);
                 context.startActivity(intent);
             }
         });
