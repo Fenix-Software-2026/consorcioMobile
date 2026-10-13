@@ -91,9 +91,9 @@ public class MisReclamosActivity extends AppCompatActivity {
                         boolean esAdmin = getIntent().getBooleanExtra("ES_ADMIN", false);
                         reclamoAdapter = new ReclamoAdapter(MisReclamosActivity.this, misReclamos, esAdmin);
 
-                        Toast.makeText(MisReclamosActivity.this,
-                                "¡Éxito! Reclamos del usuario recibidos: " + misReclamos.size(),
-                                Toast.LENGTH_LONG).show();
+                       /// Toast.makeText(MisReclamosActivity.this,
+                           ///     "¡Éxito! Reclamos del usuario recibidos: " + misReclamos.size(),
+                             ///   Toast.LENGTH_LONG).show();
 
                         recyclerMisReclamos.setAdapter(reclamoAdapter);
                         for (Reclamo r : misReclamos) {
