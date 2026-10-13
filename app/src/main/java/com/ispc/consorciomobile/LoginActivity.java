@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                 || rolNormalizado.equals("admin")
                 || rolNormalizado.equals("consorcio")) {
 
-            intent = new Intent(this, AltaResidente.class);
+            intent = new Intent(this, AdminDashboard.class);
 
         } else {
 
