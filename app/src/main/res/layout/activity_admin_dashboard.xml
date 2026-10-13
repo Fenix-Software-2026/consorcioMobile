@@ -259,6 +259,6 @@ tools:context=".AdminDashboard">
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:background="@android:color/white"
-    app:menu="@menu/menu_dashboard_residente" />
+    app:menu="@menu/menu_admin_dashboard" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

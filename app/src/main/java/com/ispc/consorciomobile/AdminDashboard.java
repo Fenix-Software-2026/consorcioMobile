@@ -112,8 +112,8 @@ public class AdminDashboard extends AppCompatActivity {
                 return true;
             }
 
-            if (item.getItemId() == R.id.nav_contacto) {
-                Intent intent = new Intent(AdminDashboard.this, ContactActivity.class);
+            if (item.getItemId() == R.id.nav_alta_residente) {
+                Intent intent = new Intent(AdminDashboard.this, AltaResidente.class);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 startActivity(intent);
                 return true;
