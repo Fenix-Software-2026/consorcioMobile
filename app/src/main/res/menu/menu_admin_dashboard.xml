@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_inicio"
+            android:icon="@drawable/ic_menu_24"
+            android:title="Inicio" />
+
+        <item
+            android:id="@+id/nav_reclamos"
+            android:icon="@drawable/baseline_build_24"
+            android:title="@string/mis_reclamos" />
+
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/profile_silhouette"
+            android:title="Mi Perfil"/>
+
+        <item
+            android:id="@+id/nav_comunicados"
+            android:icon="@drawable/comunicado_menu"
+            android:title="Comunicados" />
+
+        <item
+            android:id="@+id/nav_alta_residente"
+            android:icon="@drawable/baseline_person_add_alt_1_24"
+            android:title="Alta Residente"/>
+
+
+
+
+    </group>
+
+</menu>
