@@ -89,6 +89,8 @@ public class AdminDashboard extends AppCompatActivity {
                         MisReclamosActivity.class
                 );
 
+                intent.putExtra("ES_ADMIN", true);
+
                 drawerLayout.closeDrawer(GravityCompat.START);
                 startActivity(intent);
                 return true;
@@ -96,17 +98,14 @@ public class AdminDashboard extends AppCompatActivity {
 
             if (item.getItemId() == R.id.nav_perfil) {
                 Intent intent = new Intent(AdminDashboard.this, MiPerfilActivity.class);
-
                 // Cierra el menú lateral con una animación suave
                 drawerLayout.closeDrawer(GravityCompat.START);
-
-                // Abre tu pantalla
                 startActivity(intent);
                 return true;
             }
 
             if (item.getItemId() == R.id.nav_comunicados) {
-                Intent intent = new Intent(AdminDashboard.this, ComunicadosResidenteActivity.class);
+                Intent intent = new Intent(AdminDashboard.this, ComunicadosAdminActivity.class);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 startActivity(intent);
                 return true;
