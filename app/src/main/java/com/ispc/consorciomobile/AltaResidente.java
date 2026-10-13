@@ -2,7 +2,6 @@ package com.ispc.consorciomobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -43,7 +42,6 @@ public class AltaResidente extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alta_residente);
 
-
         // Relacionar cada control del XML con una variable Java.
         etUsername = findViewById(R.id.etUsuarioInquilino);
         etFirstName = findViewById(R.id.etNombreInquilino);
@@ -61,18 +59,11 @@ public class AltaResidente extends AppCompatActivity {
                 finish();
             }
         });
+
         btnGuardar.setOnClickListener(v -> registrarResidente());
 
         TextView txtTitulo = findViewById(R.id.txtTituloBarra);
         txtTitulo.setText("Usuarios");
-
-        // Acceso al panel de comunicados. Es temporal: cuando esté listo el
-        // dashboard del administrador, este botón se mueve para allá.
-        Button btnGestionarComunicados = findViewById(R.id.btnGestionarComunicados);
-        btnGestionarComunicados.setOnClickListener(v -> {
-            Intent intent = new Intent(AltaResidente.this, ComunicadosAdminActivity.class);
-            startActivity(intent);
-        });
     }
 
     private void cargarUnidades() {
@@ -237,8 +228,6 @@ public class AltaResidente extends AppCompatActivity {
         }
 
         try {
-            // El serializer devuelve errores agrupados por campo, por ejemplo:
-            // {"unidad": ["Ya existe un/a usuario con este/a unidad."]}
             JSONObject errorJson = new JSONObject(response.errorBody().string());
             StringBuilder detalle = new StringBuilder();
 
@@ -260,9 +249,7 @@ public class AltaResidente extends AppCompatActivity {
                     ? detalle.toString()
                     : "revisá los datos ingresados";
         } catch (Exception exception) {
-            // Si la respuesta no tiene el formato JSON esperado, mostramos un mensaje general.
             return "revisá los datos ingresados";
         }
     }
-
 }

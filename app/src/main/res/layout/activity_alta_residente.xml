@@ -68,9 +68,11 @@
                         android:background="@color/gris_fondo_input"
                         android:hint="Usuario *"
                         android:inputType="text"
+                        android:autofillHints="username"
                         android:paddingHorizontal="12dp"
                         android:textColor="@color/texto_principal"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:contentDescription="Nombre de usuario del inquilino" />
 
                     <EditText
                         android:id="@+id/etNombreInquilino"
@@ -80,9 +82,11 @@
                         android:background="@color/gris_fondo_input"
                         android:hint="Nombre *"
                         android:inputType="textPersonName|textCapSentences"
+                        android:autofillHints="name"
                         android:paddingHorizontal="12dp"
                         android:textColor="@color/texto_principal"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:contentDescription="Nombre del inquilino" />
 
                     <EditText
                         android:id="@+id/etApellidoInquilino"
@@ -92,9 +96,11 @@
                         android:background="@color/gris_fondo_input"
                         android:hint="Apellido *"
                         android:inputType="textPersonName|textCapSentences"
+                        android:autofillHints="familyName"
                         android:paddingHorizontal="12dp"
                         android:textColor="@color/texto_principal"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:contentDescription="Apellido del inquilino" />
 
                     <EditText
                         android:id="@+id/etEmailInquilino"
@@ -104,11 +110,14 @@
                         android:background="@color/gris_fondo_input"
                         android:hint="Email *"
                         android:inputType="textEmailAddress"
+                        android:autofillHints="emailAddress"
                         android:paddingHorizontal="12dp"
                         android:textColor="@color/texto_principal"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:contentDescription="Correo electrónico del inquilino" />
 
                     <TextView
+                        android:id="@+id/lblUnidadFuncional"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -125,7 +134,9 @@
                         android:background="@color/gris_fondo_input"
                         android:paddingHorizontal="8dp"
                         android:prompt="@string/seleccionar_unidad"
-                        android:spinnerMode="dropdown" />
+                        android:spinnerMode="dropdown"
+                        android:contentDescription="Seleccionar unidad funcional"
+                        android:accessibilityTraversalBefore="@+id/btnCrearInquilino" />
 
                     <Button
                         android:id="@+id/btnCrearInquilino"
@@ -136,23 +147,15 @@
                         android:text="Crear inquilino"
                         android:textColor="@color/blanco"
                         android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:contentDescription="Botón para confirmar y crear el nuevo inquilino" />
 
                 </LinearLayout>
+<<<<<<< HEAD
 
+=======
+>>>>>>> bb34bc1eb8f7ca603f03ef830103ab8514af37ff
             </com.google.android.material.card.MaterialCardView>
-
-            <!-- Acceso al panel de comunicados del administrador -->
-            <Button
-                android:id="@+id/btnGestionarComunicados"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/naranja"
-                android:text="Gestionar comunicados"
-                android:textColor="@color/blanco"
-                android:textSize="14sp"
-                android:textStyle="bold" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
