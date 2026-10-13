@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">ConsorcioMobile</string>
+    <string name="seleccionar_unidad">Seleccionar unidad funcional</string>
 
     <!-- Textos para Comunicados -->
     <string name="titulo_crear_comunicado">Publicar Nuevo Comunicado</string>
