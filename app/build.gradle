@@ -45,4 +45,6 @@ dependencies {
     // Dependencias para los tests unitarios del ViewModel
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation 'org.mockito:mockito-core:4.11.0'
+    //Accesibilidad de Espresso
+    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.5.1'
 }
