@@ -89,6 +89,8 @@ public class AdminDashboard extends AppCompatActivity {
                         MisReclamosActivity.class
                 );
 
+                intent.putExtra("ES_ADMIN", true);
+
                 drawerLayout.closeDrawer(GravityCompat.START);
                 startActivity(intent);
                 return true;

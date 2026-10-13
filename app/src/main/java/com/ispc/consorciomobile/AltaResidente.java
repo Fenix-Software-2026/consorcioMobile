@@ -63,16 +63,6 @@ public class AltaResidente extends AppCompatActivity {
         });
         btnGuardar.setOnClickListener(v -> registrarResidente());
 
-        Button btnIrAReclamos = findViewById(R.id.btnIrAReclamosTest);
-
-        if (btnIrAReclamos != null) {
-            btnIrAReclamos.setOnClickListener(v -> {
-                // Redirige al listado de reclamos mandando la bandera de Admin
-                Intent intent = new Intent(AltaResidente.this, MisReclamosActivity.class);
-                intent.putExtra("ES_ADMIN", true);
-                startActivity(intent);
-            });
-        }
         TextView txtTitulo = findViewById(R.id.txtTituloBarra);
         txtTitulo.setText("Usuarios");
 

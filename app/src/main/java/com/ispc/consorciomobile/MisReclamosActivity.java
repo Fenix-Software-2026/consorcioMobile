@@ -32,6 +32,8 @@ public class MisReclamosActivity extends AppCompatActivity {
     private static final String TAG = "PRUEBA_RECLAMOS";
     private RecyclerView recyclerMisReclamos;
     private ReclamoAdapter reclamoAdapter;
+    private Button btn_crear_reclamo_activity;
+    private Button btn_reclamos_volver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +44,15 @@ public class MisReclamosActivity extends AppCompatActivity {
         TextView txtTitulo = findViewById(R.id.txtTituloBarra);
         txtTitulo.setText("Mis reclamos");
 
+
         Log.d("PRUEBA_RECLAMOS", "--> onCreate de MisReclamosActivity INICIADO");
         Toast.makeText(this, "Abriendo Mis Reclamos...", Toast.LENGTH_SHORT).show();
 
 
-        Button btn_reclamos_volver = findViewById(R.id.btn_reclamos_volver);
+         btn_reclamos_volver = findViewById(R.id.btn_reclamos_volver);
 
-        Button btn_crear_reclamo_activity = findViewById(R.id.btn_crear_reclamo_activity);
+
+         btn_crear_reclamo_activity = findViewById(R.id.btn_crear_reclamo_activity);
         recyclerMisReclamos = findViewById(R.id.recyclerMisReclamos);
 
         recyclerMisReclamos.setLayoutManager(new LinearLayoutManager(this));
@@ -57,8 +61,12 @@ public class MisReclamosActivity extends AppCompatActivity {
         btn_reclamos_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MisReclamosActivity.this, DashboardResidenteActivity.class
+                boolean esAdmin = getIntent().getBooleanExtra("ES_ADMIN", false);
+                // Si es admin, vuelve al AdminDashboard; sino, al de residente
+                Class<?> destino = esAdmin ? AdminDashboard.class : DashboardResidenteActivity.class;
+                Intent intent = new Intent(MisReclamosActivity.this, destino
                 );
+                intent.putExtra("ES_ADMIN", esAdmin);
                 startActivity(intent);
                 finish();
             }
@@ -89,9 +97,14 @@ public class MisReclamosActivity extends AppCompatActivity {
                         List<Reclamo> misReclamos = response.body();
 
                         boolean esAdmin = getIntent().getBooleanExtra("ES_ADMIN", false);
+                        if (esAdmin) {
+                            btn_crear_reclamo_activity.setVisibility(View.GONE);
+                        } else {
+                            btn_crear_reclamo_activity.setVisibility(View.VISIBLE);
+                        }
                         reclamoAdapter = new ReclamoAdapter(MisReclamosActivity.this, misReclamos, esAdmin);
 
-                       /// Toast.makeText(MisReclamosActivity.this,
+                        /// Toast.makeText(MisReclamosActivity.this,
                            ///     "¡Éxito! Reclamos del usuario recibidos: " + misReclamos.size(),
                              ///   Toast.LENGTH_LONG).show();
 

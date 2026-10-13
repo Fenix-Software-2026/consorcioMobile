@@ -1,5 +1,6 @@
 package com.ispc.consorciomobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,16 @@ public class DetalleReclamoActivity extends AppCompatActivity {
 
         TextView txtTitulo = findViewById(R.id.txtTituloBarra);
         txtTitulo.setText("Detalle Reclamo");
+        TextView btnVolverBarra = findViewById(R.id.btnVolverBarra);
+        if (btnVolverBarra != null) {
+            btnVolverBarra.setOnClickListener(v -> {
+                boolean esAdmin = getIntent().getBooleanExtra("ES_ADMIN", false);
+                Intent intent = new Intent(DetalleReclamoActivity.this, MisReclamosActivity.class);
+                intent.putExtra("ES_ADMIN", esAdmin);
+                startActivity(intent);
+                finish();
+            });;
+        }
 
         TextView tvTitulo = findViewById(R.id.tvDetalleTitulo);
         TextView tvDescripcion = findViewById(R.id.tvDetalleDescripcion);

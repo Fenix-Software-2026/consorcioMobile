@@ -140,15 +140,6 @@
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btnIrAReclamosTest"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
-                    android:text="[TEST] Ir a Reclamos (Admin)"
-                    android:textColor="@color/white"
-                    android:backgroundTint="#6C757D"
-                    app:cornerRadius="8dp" />
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Acceso al panel de comunicados del administrador -->
