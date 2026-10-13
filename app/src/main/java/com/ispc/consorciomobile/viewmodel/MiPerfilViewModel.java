@@ -10,6 +10,8 @@ import com.ispc.consorciomobile.network.ApiService;
 import com.ispc.consorciomobile.network.RetrofitClient;
 import com.ispc.consorciomobile.network.TokenManager;
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,7 +78,32 @@ public class MiPerfilViewModel extends ViewModel {
                     toastMessageLiveData.setValue("Contraseña actualizada con éxito");
                     passwordUpdatedSuccessLiveData.setValue(true);
                 } else {
-                    toastMessageLiveData.setValue("Error al actualizar contraseña. Verifica tu contraseña actual.");
+                    try {
+                        // Leemos el JSON de error de Retrofit
+                        String errorJsonString = response.errorBody().string();
+                        JSONObject errorJson = new JSONObject(errorJsonString);
+                        StringBuilder mensajeError = new StringBuilder();
+
+                        // Buscamos si el error es de la contraseña actual
+                        if (errorJson.has("current_password")) {
+                            mensajeError.append(errorJson.getJSONArray("current_password").getString(0));
+                        }
+                        // Buscamos si el error es de la nueva contraseña
+                        else if (errorJson.has("new_password")) {
+                            mensajeError.append(errorJson.getJSONArray("new_password").getString(0));
+                        }
+                        // Por si manda otro error inesperado
+                        else {
+                            mensajeError.append("Verifica los datos ingresados.");
+                        }
+
+                        // Enviamos el mensaje dinámico a tu LiveData
+                        toastMessageLiveData.setValue(mensajeError.toString());
+
+                    } catch (Exception e) {
+                        // Fallback en caso de que el JSON no se pueda leer
+                        toastMessageLiveData.setValue("Error al actualizar la contraseña.");
+                    }
                 }
             }
 
