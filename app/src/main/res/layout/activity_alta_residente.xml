@@ -151,10 +151,6 @@
                         android:contentDescription="Botón para confirmar y crear el nuevo inquilino" />
 
                 </LinearLayout>
-<<<<<<< HEAD
-
-=======
->>>>>>> bb34bc1eb8f7ca603f03ef830103ab8514af37ff
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
