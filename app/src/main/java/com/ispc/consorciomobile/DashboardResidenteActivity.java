@@ -180,16 +180,8 @@ DashboardResidenteActivity extends AppCompatActivity {
                     Response<List<Reclamo>> response
             ) {
                 if (response.isSuccessful() && response.body() != null) {
-                    int cantidadActivos = 0;
-
-                    for (Reclamo reclamo : response.body()) {
-                        String estado = reclamo.getEstado();
-
-                        if ("pendiente".equalsIgnoreCase(estado)
-                                || "en_proceso".equalsIgnoreCase(estado)) {
-                            cantidadActivos++;
-                        }
-                    }
+                    int cantidadActivos =
+                            ContadorReclamos.contarActivos(response.body());
 
                     tvCantidadReclamos.setText(String.valueOf(cantidadActivos));
                 } else {
