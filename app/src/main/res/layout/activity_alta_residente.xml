@@ -151,6 +151,7 @@
                         android:contentDescription="Botón para confirmar y crear el nuevo inquilino" />
 
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
