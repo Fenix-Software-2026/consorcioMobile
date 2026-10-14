@@ -52,7 +52,7 @@ public class AuthApiTest {
     }
 
     // -------------------------------------------------------------------------
-    // TC-L-01: Respuesta HTTP 200 con parseo del token de acceso
+    // TC-L-06: Respuesta HTTP 200 con parseo del token de acceso // <-Nota de nahuu: modifique el id del test para dejar la matriz de excel mas ordenada
     // -------------------------------------------------------------------------
     @Test
     public void TC_L_01_iniciarSesion_red200Ok_parseaAccessToken() throws Exception {
