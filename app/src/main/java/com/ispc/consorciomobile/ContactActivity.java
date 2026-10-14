@@ -31,10 +31,10 @@ public class ContactActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button botonVolver = findViewById(R.id.botonVolver);
+        TextView btnVolver = findViewById(R.id.btnVolverBarra);
+        btnVolver.setOnClickListener(view -> finish());
 
-        botonVolver.setOnClickListener(v -> {
-            finish();
-        });
+        TextView txtTituloBarra = findViewById(R.id.txtTituloBarra);
+        txtTituloBarra.setText("Contacto");
     }
 }
