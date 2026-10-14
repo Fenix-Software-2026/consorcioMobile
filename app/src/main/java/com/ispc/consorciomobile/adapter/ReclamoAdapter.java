@@ -2,6 +2,7 @@ package com.ispc.consorciomobile.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -46,7 +47,9 @@ public class ReclamoAdapter extends RecyclerView.Adapter<ReclamoAdapter.ReclamoV
             holder.tvDescripcion.setText(reclamo.getDescripcion() != null ? reclamo.getDescripcion() : "Sin descripción");
         }
         if (holder.tvEstado != null) {
-            holder.tvEstado.setText(reclamo.getEstado() != null ? reclamo.getEstado() : "Registrado");
+            String estadoStr = reclamo.getEstado() != null ? reclamo.getEstado() : "Registrado";
+            holder.tvEstado.setText(estadoStr);
+            aplicarColorEstado(holder.tvEstado, estadoStr);
         }
         if (holder.tvFecha != null) {
             holder.tvFecha.setText(reclamo.getFechaCreacion() != null ? reclamo.getFechaCreacion() : "");
@@ -54,6 +57,7 @@ public class ReclamoAdapter extends RecyclerView.Adapter<ReclamoAdapter.ReclamoV
         if (holder.tvCategoria != null) {
             holder.tvCategoria.setText(reclamo.getCategoria() != null ? reclamo.getCategoria() : "General");
         }
+
 
 // Evento de clic en la tarjeta para abrir el detalle
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +74,33 @@ public class ReclamoAdapter extends RecyclerView.Adapter<ReclamoAdapter.ReclamoV
                 context.startActivity(intent);
             }
         });
+    }
+
+    private void aplicarColorEstado(TextView tvEstado, String estado) {
+        int colorFondo;
+        int colorTexto = Color.parseColor("#FFFFFF"); // Texto blanco por defecto
+
+        switch (estado.toLowerCase()) {
+            case "pendiente":
+                colorFondo = Color.parseColor("#F59E0B"); // Naranja/Ámbar
+                break;
+            case "en_proceso":
+            case "en proceso":
+                colorFondo = Color.parseColor("#3B82F6"); // Azul
+                break;
+            case "resuelto":
+                colorFondo = Color.parseColor("#10B981"); // Verde
+                break;
+            case "archivado":
+                colorFondo = Color.parseColor("#6B7280"); // Gris
+                break;
+            default:
+                colorFondo = Color.parseColor("#9CA3AF");
+                break;
+        }
+
+        tvEstado.setTextColor(colorTexto);
+        tvEstado.setBackgroundColor(colorFondo);
     }
 
     @Override

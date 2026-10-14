@@ -1,6 +1,7 @@
 package com.ispc.consorciomobile;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,7 +47,8 @@ public class DetalleReclamoActivity extends AppCompatActivity {
                 intent.putExtra("ES_ADMIN", esAdmin);
                 startActivity(intent);
                 finish();
-            });;
+            });
+            ;
         }
 
         TextView tvTitulo = findViewById(R.id.tvDetalleTitulo);
@@ -111,13 +113,13 @@ public class DetalleReclamoActivity extends AppCompatActivity {
             btnGuardarEstadoAdmin.setOnClickListener(v -> {
                 if (spCambiarEstado != null) {
                     String nuevoEstado = spCambiarEstado.getSelectedItem().toString();
-                    actualizarEstadoEnBackend(nuevoEstado);
+                    actualizarEstado(nuevoEstado);
                 }
             });
         }
     }
 
-    private void actualizarEstadoEnBackend(String nuevoEstado) {
+    private void actualizarEstado(String nuevoEstado) {
         if (reclamoId == -1) {
             Toast.makeText(this, "Error: ID de reclamo inválido", Toast.LENGTH_SHORT).show();
             return;
@@ -131,14 +133,24 @@ public class DetalleReclamoActivity extends AppCompatActivity {
         apiService.actualizarEstadoReclamo(reclamoId, body).enqueue(new Callback<Reclamo>() {
             @Override
             public void onResponse(Call<Reclamo> call, Response<Reclamo> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(DetalleReclamoActivity.this, "¡Estado actualizado a: " + nuevoEstado + "!", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body() != null) {
+                    Reclamo reclamoActualizado = response.body();
+                    String estadoFinal = reclamoActualizado.getEstado() != null ? reclamoActualizado.getEstado() : nuevoEstado;
+                    String estadoTextoUI = estadoFinal.toUpperCase();
                     if (tvEstado != null) {
-                        tvEstado.setText(nuevoEstado.toUpperCase());
+                        tvEstado.setText(estadoTextoUI);
+                        aplicarColorEstadoDetalle(tvEstado, estadoFinal);
                     }
-                } else {
-                    Toast.makeText(DetalleReclamoActivity.this, "Error al actualizar (HTTP " + response.code() + ")", Toast.LENGTH_SHORT).show();
-                }
+                    Toast.makeText(DetalleReclamoActivity.this, "¡Estado actualizado a: " + nuevoEstado + "!", Toast.LENGTH_SHORT).show();
+
+
+                    Intent intentRetorno = new Intent();
+                    setResult(RESULT_OK, intentRetorno);
+                    finish();
+
+                } //else {
+                //Toast.makeText(DetalleReclamoActivity.this, "Error al actualizar (HTTPS " + response.code() + ")", Toast.LENGTH_SHORT).show();
+                // }
             }
 
             @Override
@@ -147,6 +159,34 @@ public class DetalleReclamoActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void aplicarColorEstadoDetalle(TextView tv, String estado) {
+        if (estado == null) return;
+        int colorFondo;
+        String estadoLimpio = estado.toLowerCase().trim();
+
+        switch (estado.toLowerCase()) {
+            case "pendiente":
+                colorFondo = Color.parseColor("#F59E0B");
+                break;
+            case "en_proceso":
+            case "en proceso":
+                colorFondo = Color.parseColor("#3B82F6");
+                break;
+            case "resuelto":
+                colorFondo = Color.parseColor("#10B981");
+                break;
+            case "archivado":
+                colorFondo = Color.parseColor("#6B7280");
+                break;
+            default:
+                colorFondo = Color.parseColor("#9CA3AF");
+                break;
+        }
+        tv.setTextColor(Color.parseColor("#FFFFFF"));
+        tv.setBackgroundColor(colorFondo);
+    }
 }
+
 
 
