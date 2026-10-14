@@ -1,0 +1,243 @@
+{
+  "info": {
+    "_postman_id": "8ef40d7e-d447-4916-9b30-788490530cf8",
+    "name": "My Collection",
+    "description": "Colección de pruebas para el proyecto Consorcio Mobile API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58589683"
+  },
+  "item": [
+    {
+      "name": "Login admin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Successful POST request\", function () {\n    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\n});\n\nif (pm.response.code === 200) {\n    const json = pm.response.json();\n    if (json.access) {\n        pm.collectionVariables.set(\"json_web_token_032x\", json.access);\n    }\n}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"username\": \"AdminConsor\",\n    \"password\": \"Contraseña\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://gaston.alwaysdata.net/api/login/",
+          "protocol": "https",
+          "host": [
+            "gaston",
+            "alwaysdata",
+            "net"
+          ],
+          "path": [
+            "api",
+            "login",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get reclamos admin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"La respuesta contiene un listado de reclamos\", function () {\n    const jsonData = pm.response.json();\n    pm.expect(jsonData).to.be.an(\"array\");\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_032x}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://gaston.alwaysdata.net/api/reclamos/",
+          "protocol": "https",
+          "host": [
+            "gaston",
+            "alwaysdata",
+            "net"
+          ],
+          "path": [
+            "api",
+            "reclamos",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear reclamo (Admin - Debe bloquearse por rol)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 403 Forbidden\", function () {\n    pm.response.to.have.status(403);\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_032x}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"titulo\": \"Fuga de agua en pasillo\",\n    \"descripcion\": \"Prueba de restricción de administrador\",\n    \"categoria\": \"plomeria\"\n}"
+        },
+        "url": {
+          "raw": "https://gaston.alwaysdata.net/api/reclamos/",
+          "protocol": "https",
+          "host": [
+            "gaston",
+            "alwaysdata",
+            "net"
+          ],
+          "path": [
+            "api",
+            "reclamos",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar estado reclamo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200 OK\", function () {\n    pm.response.to.have.status(200);\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_032x}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"estado\": \"en_proceso\"\n}"
+        },
+        "url": {
+          "raw": "https://gaston.alwaysdata.net/api/reclamos/16/",
+          "protocol": "https",
+          "host": [
+            "gaston",
+            "alwaysdata",
+            "net"
+          ],
+          "path": [
+            "api",
+            "reclamos",
+            "16",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Reclamos sin token (401)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"TC | Código de respuesta es 401 Unauthorized\", function () {\n    pm.response.to.have.status(401);\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://gaston.alwaysdata.net/api/reclamos/",
+          "protocol": "https",
+          "host": [
+            "gaston",
+            "alwaysdata",
+            "net"
+          ],
+          "path": [
+            "api",
+            "reclamos",
+            ""
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_032x",
+      "secret": true
+    }
+  ]
+}
