@@ -139,6 +139,13 @@ La aplicación móvil se encuentra actualmente en desarrollo e integración prog
 
 ---
 
+### 📝 Seccion para la devolucion por parte del Equipo Docente
+---
+* **Nota:** 
+* **Fecha:** 
+* **Observación:** 
+
+---
 ## 📄 Licencia
 
 Proyecto académico desarrollado con fines educativos.
