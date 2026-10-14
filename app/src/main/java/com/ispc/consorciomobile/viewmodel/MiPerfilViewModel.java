@@ -9,6 +9,7 @@ import com.ispc.consorciomobile.model.Residente;
 import com.ispc.consorciomobile.network.ApiService;
 import com.ispc.consorciomobile.network.RetrofitClient;
 import com.ispc.consorciomobile.network.TokenManager;
+import com.ispc.consorciomobile.ValidadorContrasena;
 
 import org.json.JSONObject;
 
@@ -18,7 +19,7 @@ import retrofit2.Response;
 
 public class MiPerfilViewModel extends ViewModel {
 
-    private static final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!_.-])(?=\\S+$).{8,}$";
+    private static final String PASSWORD_REGEX = ValidadorContrasena.PASSWORD_REGEX;
 
     private final MutableLiveData<String> usernameLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isLoadingLiveData = new MutableLiveData<>(false);
@@ -62,7 +63,7 @@ public class MiPerfilViewModel extends ViewModel {
             return;
         }
 
-        if (!passNueva.matches(PASSWORD_REGEX)) {
+        if (!ValidadorContrasena.esValida(passNueva)) {
             toastMessageLiveData.setValue("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial");
             return;
         }
