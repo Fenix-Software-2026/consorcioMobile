@@ -32,7 +32,7 @@
             android:minHeight="48dp"
             android:text="Volver"
             android:textSize="12sp"
-            android:textColor="@color/naranja"
+            android:textColor="#A35A00"
             android:backgroundTint="@color/white"
             app:cornerRadius="20dp"
             android:paddingHorizontal="14dp" />
@@ -97,8 +97,9 @@
                 android:id="@+id/cbUrgente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minHeight="48dp"
                 android:text="Urgente (resaltará en la lista)"
-                android:textColor="@color/naranja"
+                android:textColor="#A35A00"
                 android:textStyle="bold"
                 android:buttonTint="@color/naranja"
                 android:layout_marginBottom="16dp"/>
@@ -109,7 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_publicar_comunicado"
-                android:backgroundTint="@color/naranja"
+                android:backgroundTint="#A35A00"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:minHeight="48dp"/>
@@ -136,6 +137,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/negro"
+            android:accessibilityHeading="true"
             android:layout_marginBottom="12dp"/>
 
         <!-- Mensaje cuando todavía no hay comunicados -->
@@ -148,6 +150,7 @@
             android:textColor="#777777"
             android:gravity="center"
             android:paddingVertical="16dp"
+            android:accessibilityLiveRegion="polite"
             android:visibility="gone" />
 
         <!-- Lista con los comunicados que vienen de la API -->
