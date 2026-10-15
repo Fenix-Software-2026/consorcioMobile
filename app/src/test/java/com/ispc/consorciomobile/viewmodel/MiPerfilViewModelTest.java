@@ -89,7 +89,7 @@ public class MiPerfilViewModelTest {
         Response<Residente> responseError = Response.error(400, okhttp3.ResponseBody.create(null, "Bad Request"));
         captor.getValue().onResponse(mockCall, responseError);
 
-        assertEquals("Error al actualizar contraseña. Verifica tu contraseña actual.", viewModel.getToastMessageLiveData().getValue());
+        assertEquals("Error al actualizar contraseña.", viewModel.getToastMessageLiveData().getValue());
         assertEquals(Boolean.FALSE, viewModel.getIsLoadingLiveData().getValue());
     }
 
