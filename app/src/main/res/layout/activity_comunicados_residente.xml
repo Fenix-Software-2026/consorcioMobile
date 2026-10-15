@@ -39,7 +39,7 @@
             android:minHeight="48dp"
             android:text="Dashboard"
             android:textSize="12sp"
-            android:textColor="@color/naranja"
+            android:textColor="#A35A00"
             android:backgroundTint="@color/white"
             app:cornerRadius="20dp"
             android:paddingHorizontal="14dp" />
@@ -79,6 +79,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/negro"
+            android:accessibilityHeading="true"
             android:layout_marginBottom="12dp"/>
 
         <!-- Mensaje cuando todavía no hay comunicados -->
@@ -91,6 +92,7 @@
             android:textColor="#777777"
             android:gravity="center"
             android:paddingVertical="24dp"
+            android:accessibilityLiveRegion="polite"
             android:visibility="gone" />
 
         <!-- Lista con los comunicados que vienen de la API -->

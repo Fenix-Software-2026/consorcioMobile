@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Contenido del comunicado..."
-            android:textColor="#555555"
+            android:textColor="#444444"
             android:textSize="13sp"
             android:maxLines="3"
             android:ellipsize="end"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="Publicado: --/--/----"
             android:textColor="#444444"
-            android:textSize="11sp"
+            android:textSize="12sp"
             android:textStyle="italic" />
 
     </LinearLayout>
