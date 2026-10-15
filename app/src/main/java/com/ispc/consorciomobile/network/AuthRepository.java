@@ -1,12 +1,6 @@
-package com.ispc.consorciomobile.data;
+package com.ispc.consorciomobile.network;
 
 import android.util.Base64;
-
-import com.ispc.consorciomobile.network.ApiService;
-import com.ispc.consorciomobile.network.LoginRequest;
-import com.ispc.consorciomobile.network.LoginResponse;
-import com.ispc.consorciomobile.network.RetrofitClient;
-import com.ispc.consorciomobile.network.TokenManager;
 
 import org.json.JSONObject;
 
