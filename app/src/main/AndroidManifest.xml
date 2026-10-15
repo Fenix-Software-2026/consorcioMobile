@@ -2,18 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logoconsorcioappsvg"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ConsorcioMobile"
         tools:targetApi="31">
         <activity
+            android:name=".AdminDashboard"
+            android:exported="false" />
+        <activity
             android:name=".ContactActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AltaResidente"
             android:exported="false" />
         <activity
             android:name=".MiPerfilActivity"
@@ -43,10 +51,16 @@
             android:name=".MisReclamosActivity"
             android:exported="false" />
         <activity
+            android:name=".DetalleReclamoActivity"
+            android:exported="false" />
+        <activity
             android:name=".ComunicadosAdminActivity"
             android:exported="false" />
         <activity
             android:name=".ComunicadosResidenteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetalleComunicadoActivity"
             android:exported="false" />
     </application>
 

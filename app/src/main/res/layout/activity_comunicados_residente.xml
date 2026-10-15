@@ -39,148 +39,70 @@
             android:minHeight="48dp"
             android:text="Dashboard"
             android:textSize="12sp"
-            android:textColor="@color/naranja"
+            android:textColor="#A35A00"
             android:backgroundTint="@color/white"
             app:cornerRadius="20dp"
             android:paddingHorizontal="14dp" />
     </LinearLayout>
 
-    <!-- Contenedor con scroll para ver el historial de comunicados -->
-    <ScrollView
+    <!-- Contenedor de la lista de comunicados -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true">
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <LinearLayout
+        <!-- Saludo amigable genérico -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:text="¡Hola, Residente!"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/negro"
+            android:layout_marginBottom="4dp" />
 
-            <!-- Saludo amigable genérico -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="¡Hola, Residente!"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="@color/negro"
-                android:layout_marginBottom="4dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aquí puedes consultar los avisos y comunicados oficiales del consorcio."
+            android:textSize="13sp"
+            android:textColor="#555555"
+            android:layout_marginBottom="16dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Aquí puedes consultar los avisos y comunicados oficiales del consorcio."
-                android:textSize="13sp"
-                android:textColor="#555555"
-                android:layout_marginBottom="16dp" />
+        <!-- Título de la Sección -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Historial de Comunicados"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/negro"
+            android:accessibilityHeading="true"
+            android:layout_marginBottom="12dp"/>
 
-            <!-- Título de la Sección -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Historial de Comunicados"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/negro"
-                android:layout_marginBottom="12dp"/>
+        <!-- Mensaje cuando todavía no hay comunicados -->
+        <TextView
+            android:id="@+id/tvSinComunicados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Todavía no hay comunicados publicados."
+            android:textSize="14sp"
+            android:textColor="#777777"
+            android:gravity="center"
+            android:paddingVertical="24dp"
+            android:accessibilityLiveRegion="polite"
+            android:visibility="gone" />
 
-            <!-- Tarjeta Ejemplo 1: Comunicado URGENTE -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/naranjaclaro"
-                app:strokeColor="@color/naranja"
-                app:strokeWidth="1dp">
+        <!-- Lista con los comunicados que vienen de la API -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerComunicados"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="6dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="[URGENTE] Corte de Gas"
-                            android:textStyle="bold"
-                            android:textColor="@color/negro"
-                            android:textSize="15sp" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Corte total por una hora debido a mantenimiento preventivo en la red principal."
-                        android:textColor="@color/negro"
-                        android:textSize="13sp"
-                        android:layout_marginBottom="8dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Publicado: 13/09/2026"
-                        android:textColor="#444444"
-                        android:textSize="11sp"
-                        android:textStyle="italic"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Tarjeta Ejemplo 2: Comunicado Normal -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/white">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Reunión Anual de Consorcio"
-                        android:textStyle="bold"
-                        android:textColor="@color/negro"
-                        android:textSize="15sp"
-                        android:layout_marginBottom="6dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Se convoca a todos los propietarios a la reunión informativa en el salón de usos múltiples."
-                        android:textColor="#555555"
-                        android:textSize="13sp"
-                        android:layout_marginBottom="8dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Publicado: 10/09/2026"
-                        android:textColor="#777777"
-                        android:textSize="11sp"
-                        android:textStyle="italic"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>
