@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Fila superior: Nombre y Badge (Vos / Inactivo) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvNombreUsuarioItem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nombre Apellido"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/texto_principal" />
+
+            <TextView
+                android:id="@+id/tvBadgeUsuarioItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/gris_fondo_input"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="Vos"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Username y Email -->
+        <TextView
+            android:id="@+id/tvUsernameUsuarioItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="\@username"
+            android:textSize="14sp"
+            android:textColor="@color/gris_texto" />
+
+        <TextView
+            android:id="@+id/tvEmailUsuarioItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="correo@ejemplo.com"
+            android:textSize="14sp"
+            android:textColor="@color/gris_texto" />
+
+        <!-- Unidad -->
+        <TextView
+            android:id="@+id/tvUnidadUsuarioItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Unidad #101"
+            android:textSize="13sp"
+            android:textStyle="italic"
+            android:textColor="@color/texto_principal" />
+
+        <!-- Botones de Acción (Editar / Eliminar) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/btnEditarUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Editar"
+                android:textSize="12sp"
+                android:backgroundTint="@color/naranja"
+                android:textColor="@color/blanco"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnEliminarUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Eliminar"
+                android:textSize="12sp"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:textColor="@color/blanco" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
