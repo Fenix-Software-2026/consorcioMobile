@@ -1,5 +1,6 @@
 package com.ispc.consorciomobile;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ispc.consorciomobile.adapter.UsuarioAdapter;
 import com.ispc.consorciomobile.model.Residente;
@@ -42,6 +44,13 @@ public class UsuariosAdminActivity extends AppCompatActivity implements UsuarioA
         });
         viewModel.cargarUsuarios(); // Dispara el GET
 
+        // Avisamos el resultado de la baja (o el error) con un Toast.
+        viewModel.getToastMessageLiveData().observe(this, mensaje -> {
+            if (mensaje != null && !mensaje.isEmpty()) {
+                Toast.makeText(UsuariosAdminActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         btnVolver = findViewById(R.id.btnVolverBarra);
         btnVolver.setOnClickListener(view -> finish());
         TextView txtTituloBarra = findViewById(R.id.txtTituloBarra);
@@ -69,6 +78,21 @@ public class UsuariosAdminActivity extends AppCompatActivity implements UsuarioA
 
     @Override
     public void onEliminar(Residente usuario) {
+        // Confirmación previa: la baja es definitiva.
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.dialogo_eliminar_titulo)
+                .setMessage(getString(R.string.dialogo_eliminar_mensaje, nombreCompleto(usuario)))
+                .setPositiveButton(R.string.dialogo_eliminar_confirmar,
+                        (dialog, which) -> viewModel.eliminarUsuario(usuario.getId()))
+                .setNegativeButton(R.string.dialogo_eliminar_cancelar, null)
+                .show();
+    }
 
+    // Nombre y apellido para mostrar en el diálogo, sin "null" si faltan.
+    private String nombreCompleto(Residente usuario) {
+        String nombre = usuario.getNombre() == null ? "" : usuario.getNombre().trim();
+        String apellido = usuario.getApellido() == null ? "" : usuario.getApellido().trim();
+        String completo = (nombre + " " + apellido).trim();
+        return completo.isEmpty() ? usuario.getUsername() : completo;
     }
 }

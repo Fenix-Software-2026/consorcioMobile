@@ -69,4 +69,24 @@ public class UsuariosViewModel extends ViewModel {
         });
     }
 
+    // Baja definitiva del residente. Al eliminarlo, su unidad queda libre.
+    public void eliminarUsuario(int idUsuario) {
+        apiService.borrarResidente(idUsuario).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    toastMessageLiveData.setValue("Residente eliminado");
+                    cargarUsuarios(); // Refrescamos la lista con el padrón actualizado
+                } else {
+                    toastMessageLiveData.setValue("No se pudo eliminar. Código: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                toastMessageLiveData.setValue("Error de conexión: " + t.getMessage());
+            }
+        });
+    }
+
 }

@@ -32,5 +32,9 @@
     <string name="usuario_vos">Vos</string>
     <string name="usuario_inactivo">Inactivo</string>
     <string name="accion_eliminar">Eliminar</string>
+    <string name="dialogo_eliminar_titulo">Eliminar residente</string>
+    <string name="dialogo_eliminar_mensaje">¿Seguro que querés eliminar a %1$s? Esta acción no se puede deshacer.</string>
+    <string name="dialogo_eliminar_confirmar">Eliminar</string>
+    <string name="dialogo_eliminar_cancelar">Cancelar</string>
 
 </resources>

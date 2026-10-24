@@ -53,6 +53,10 @@ public interface ApiService {
     @POST("api/usuario/")
     Call<Residente> crearResidente(@Body Residente residente);
 
+    // Baja definitiva del usuario. La API responde 204 sin cuerpo.
+    @DELETE("api/usuario/{id}/")
+    Call<Void> borrarResidente(@Path("id") int id);
+
     @GET("api/reclamos/")
     Call<List<Reclamo>> obtenerReclamos();
 
