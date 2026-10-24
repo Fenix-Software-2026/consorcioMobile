@@ -13,6 +13,3 @@
 .externalNativeBuild
 .cxx
 local.properties
-
-# Configuracion local del IDE (no se versiona)
-.idea
