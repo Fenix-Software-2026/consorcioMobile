@@ -31,6 +31,8 @@ import retrofit2.Response;
 
 public class AltaResidente extends AppCompatActivity {
 
+    public static final String EXTRA_ID_USUARIO = "extra_id_usuario";
+
     private EditText etUsername, etEmail, etFirstName, etLastName;
     private Spinner etUnidad;
     private Button btnGuardar;

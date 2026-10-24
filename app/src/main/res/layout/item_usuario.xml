@@ -83,7 +83,8 @@
             <Button
                 android:id="@+id/btnEditarUsuario"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
                 android:text="Editar"
                 android:textSize="12sp"
                 android:backgroundTint="@color/naranja"
@@ -93,7 +94,8 @@
             <Button
                 android:id="@+id/btnEliminarUsuario"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
                 android:text="Eliminar"
                 android:textSize="12sp"
                 android:backgroundTint="@android:color/holo_red_dark"
