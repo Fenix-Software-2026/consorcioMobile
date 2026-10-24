@@ -57,6 +57,10 @@ public interface ApiService {
     @DELETE("api/usuario/{id}/")
     Call<Void> borrarResidente(@Path("id") int id);
 
+    // Edición parcial: solo se envían los campos editables del usuario.
+    @PATCH("api/usuario/{id}/")
+    Call<Residente> actualizarResidente(@Path("id") int id, @Body Map<String, Object> body);
+
     @GET("api/reclamos/")
     Call<List<Reclamo>> obtenerReclamos();
 

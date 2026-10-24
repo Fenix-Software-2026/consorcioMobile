@@ -42,7 +42,6 @@ public class UsuariosAdminActivity extends AppCompatActivity implements UsuarioA
         viewModel.getListaUsuarios().observe(this, residentes -> {
             adapter.actualizar(residentes); // ¡Esto inyecta los datos reales en la lista!
         });
-        viewModel.cargarUsuarios(); // Dispara el GET
 
         // Avisamos el resultado de la baja (o el error) con un Toast.
         viewModel.getToastMessageLiveData().observe(this, mensaje -> {
@@ -57,23 +56,35 @@ public class UsuariosAdminActivity extends AppCompatActivity implements UsuarioA
         txtTituloBarra.setText(R.string.titulo_usuarios);
 
         btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
-        btnNuevoUsuario.setOnClickListener(view -> abrirFormulario(0));
+        btnNuevoUsuario.setOnClickListener(view -> abrirFormulario(null));
 
 
 
     }
 
-    private void abrirFormulario(int idUsuario) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Al volver del formulario (alta o edición) refrescamos la lista.
+        viewModel.cargarUsuarios();
+    }
+
+    // null = alta de un usuario nuevo; con datos = edición.
+    private void abrirFormulario(Residente usuario) {
         Intent intent = new Intent(UsuariosAdminActivity.this, AltaResidente.class);
-        if (idUsuario > 0) {
-            intent.putExtra(AltaResidente.EXTRA_ID_USUARIO, idUsuario);
+        if (usuario != null) {
+            intent.putExtra(AltaResidente.EXTRA_ID_USUARIO, usuario.getId());
+            intent.putExtra(AltaResidente.EXTRA_USERNAME, usuario.getUsername());
+            intent.putExtra(AltaResidente.EXTRA_NOMBRE, usuario.getNombre());
+            intent.putExtra(AltaResidente.EXTRA_APELLIDO, usuario.getApellido());
+            intent.putExtra(AltaResidente.EXTRA_EMAIL, usuario.getEmail());
         }
         startActivity(intent);
     }
 
     @Override
     public void onEditar(Residente usuario) {
-
+        abrirFormulario(usuario);
     }
 
     @Override

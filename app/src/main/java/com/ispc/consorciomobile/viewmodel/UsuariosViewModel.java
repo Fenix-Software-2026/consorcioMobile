@@ -26,7 +26,6 @@ public class UsuariosViewModel extends ViewModel {
 
     public UsuariosViewModel() {
         this.apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-        cargarUsuarios(); // ¡Apenas nace el ViewModel, va a buscar los usuarios!
         String tokenActual = TokenManager.obtenerToken();
         android.util.Log.d("DEBUG_TOKEN", "Token actual en memoria: " + tokenActual);
     }
