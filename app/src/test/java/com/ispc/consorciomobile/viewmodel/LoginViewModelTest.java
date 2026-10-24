@@ -2,7 +2,7 @@ package com.ispc.consorciomobile.viewmodel;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
-import com.ispc.consorciomobile.data.AuthRepository;
+import com.ispc.consorciomobile.network.AuthRepository;
 
 import org.junit.Before;
 import org.junit.Rule;
