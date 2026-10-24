@@ -10,6 +10,8 @@ Aplicación móvil para la **gestión de inquilinos y consorcios**, desarrollada
 
 El proyecto busca trasladar las funcionalidades principales del sistema a dispositivos móviles, proporcionando una interfaz adaptada a Android para facilitar el acceso a la información y la gestión de las diferentes operaciones del consorcio.
 
+Te adjuntamos un video informativo sobre el proyecto ConsorcioMobile, explicado de una manera no técnica para que comprendas el problema que buscamos solucionar con nuestra propuesta: [Ingresa aquí para ver el video informativo](https://drive.google.com/file/d/1c3iVr1hxR-F5isrZQGgA1trYsipLVBZT/view?usp=drive_link)
+
 ### 🎯 Objetivos
 
 * 📱 Facilitar el acceso al sistema desde dispositivos móviles.

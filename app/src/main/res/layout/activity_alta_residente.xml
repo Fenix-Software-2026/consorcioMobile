@@ -23,6 +23,7 @@
             android:padding="20dp">
 
             <TextView
+                android:id="@+id/txtTituloFormulario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nuevo inquilino"
@@ -137,6 +138,16 @@
                         android:spinnerMode="dropdown"
                         android:contentDescription="Seleccionar unidad funcional"
                         android:accessibilityTraversalBefore="@+id/btnCrearInquilino" />
+
+                    <ProgressBar
+                        android:id="@+id/progressFormulario"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:indeterminate="true"
+                        android:contentDescription="@string/cargando"
+                        android:visibility="gone" />
 
                     <Button
                         android:id="@+id/btnCrearInquilino"

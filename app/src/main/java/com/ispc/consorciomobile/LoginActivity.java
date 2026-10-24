@@ -1,7 +1,5 @@
 package com.ispc.consorciomobile;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -11,7 +9,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.ispc.consorciomobile.data.AuthRepository;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.ispc.consorciomobile.network.AuthRepository;
 
 public class LoginActivity extends AppCompatActivity {
 
