@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class AltaResidente extends AppCompatActivity {
     private EditText etUsername, etEmail, etFirstName, etLastName;
     private Spinner etUnidad;
     private Button btnGuardar;
+    private ProgressBar progressFormulario;
     TextView btnVolver;
     private final List<Unidad> unidades = new ArrayList<>();
 
@@ -63,6 +65,7 @@ public class AltaResidente extends AppCompatActivity {
         etLastName = findViewById(R.id.etApellidoInquilino);
         etUnidad = findViewById(R.id.spUnidadFuncional);
         btnGuardar = findViewById(R.id.btnCrearInquilino);
+        progressFormulario = findViewById(R.id.progressFormulario);
         btnVolver = findViewById(R.id.btnVolverBarra);
 
         // Si llega un id, es edición: precargamos los datos que mandó la lista.
@@ -108,7 +111,7 @@ public class AltaResidente extends AppCompatActivity {
                 .getRetrofitInstance()
                 .create(ApiService.class);
 
-        btnGuardar.setEnabled(false);
+        mostrarCargando(true);
         apiService.obtenerUnidades().enqueue(new Callback<List<Unidad>>() {
             @Override
             public void onResponse(Call<List<Unidad>> call, Response<List<Unidad>> response) {
@@ -187,7 +190,7 @@ public class AltaResidente extends AppCompatActivity {
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         etUnidad.setAdapter(adapter);
-        btnGuardar.setEnabled(!unidades.isEmpty());
+        mostrarCargando(false);
 
         // En edición dejamos seleccionada la unidad que ya tiene el usuario.
         if (unidadActual != null) {
@@ -206,8 +209,14 @@ public class AltaResidente extends AppCompatActivity {
         }
     }
 
+    // Muestra el progreso y bloquea el botón mientras se habla con la API.
+    private void mostrarCargando(boolean cargando) {
+        progressFormulario.setVisibility(cargando ? View.VISIBLE : View.GONE);
+        btnGuardar.setEnabled(!cargando && !unidades.isEmpty());
+    }
+
     private void mostrarErrorCarga(String mensaje) {
-        btnGuardar.setEnabled(false);
+        mostrarCargando(false);
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
     }
 
@@ -244,11 +253,11 @@ public class AltaResidente extends AppCompatActivity {
                 .create(ApiService.class);
 
         // Evitar envíos duplicados mientras la API procesa la solicitud.
-        btnGuardar.setEnabled(false);
+        mostrarCargando(true);
         apiService.crearResidente(residente).enqueue(new Callback<Residente>() {
             @Override
             public void onResponse(Call<Residente> call, Response<Residente> response) {
-                btnGuardar.setEnabled(true);
+                mostrarCargando(false);
                 if (response.isSuccessful()) {
                     // HTTP 2xx: el backend creó el residente y le envía las
                     // credenciales provisorias por correo.
@@ -266,7 +275,7 @@ public class AltaResidente extends AppCompatActivity {
             @Override
             public void onFailure(Call<Residente> call, Throwable t) {
                 // No hubo respuesta: revisar conexión, URL o servidor.
-                btnGuardar.setEnabled(true);
+                mostrarCargando(false);
                 Toast.makeText(AltaResidente.this,
                         "Error de conexión: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
@@ -315,11 +324,11 @@ public class AltaResidente extends AppCompatActivity {
                 .create(ApiService.class);
 
         // Evitar envíos duplicados mientras la API procesa la solicitud.
-        btnGuardar.setEnabled(false);
+        mostrarCargando(true);
         apiService.actualizarResidente(idEnEdicion, cuerpo).enqueue(new Callback<Residente>() {
             @Override
             public void onResponse(Call<Residente> call, Response<Residente> response) {
-                btnGuardar.setEnabled(true);
+                mostrarCargando(false);
                 if (response.isSuccessful()) {
                     Toast.makeText(AltaResidente.this,
                             "Cambios guardados",
@@ -336,7 +345,7 @@ public class AltaResidente extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Residente> call, Throwable t) {
-                btnGuardar.setEnabled(true);
+                mostrarCargando(false);
                 Toast.makeText(AltaResidente.this,
                         "Error de conexión: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
