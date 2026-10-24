@@ -29,4 +29,12 @@ public class Residente {
     public Integer getUnidad() { return unidad; }
     public Unidad getUnidadDetalle() { return unidadDetalle; }
 
+    // Nombre y apellido para mostrar en la interfaz, sin "null" si la API no los trae.
+    public String getNombreCompleto() {
+        String nombre = this.nombre == null ? "" : this.nombre.trim();
+        String apellido = this.apellido == null ? "" : this.apellido.trim();
+        String completo = (nombre + " " + apellido).trim();
+        return completo.isEmpty() ? (username == null ? "" : username) : completo;
+    }
+
 }

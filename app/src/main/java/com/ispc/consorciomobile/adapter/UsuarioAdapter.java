@@ -52,10 +52,10 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         Residente usuario = usuarios.get(position);
 
         // 2. Llenamos los componentes visuales con los datos del usuario
-        holder.tvNombreUsuarioItem.setText(usuario.getNombre() + usuario.getApellido());
+        holder.tvNombreUsuarioItem.setText(usuario.getNombreCompleto());
         holder.tvUsernameUsuarioItem.setText("@" + usuario.getUsername());
         holder.tvEmailUsuarioItem.setText(usuario.getEmail());
-        holder.tvUnidadUsuarioItem.setText("Unidad #" + usuario.getUnidadDetalle());
+        holder.tvUnidadUsuarioItem.setText(descripcionUnidad(usuario));
 
         // 3. Configuramos el botón EDITAR para que avise a la Activity
         holder.btnEditarUsuario.setOnClickListener(v -> {
@@ -75,6 +75,17 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
     @Override
     public int getItemCount() {
         return usuarios != null ? usuarios.size() : 0;
+    }
+
+    // Muestra la unidad legible ("Piso 1 - Departamento B") y no el objeto completo.
+    private String descripcionUnidad(Residente usuario) {
+        if (usuario.getUnidadDetalle() != null) {
+            return usuario.getUnidadDetalle().toString();
+        }
+        if (usuario.getUnidad() == null) {
+            return context.getString(R.string.usuario_sin_unidad);
+        }
+        return "Unidad #" + usuario.getUnidad();
     }
 
 

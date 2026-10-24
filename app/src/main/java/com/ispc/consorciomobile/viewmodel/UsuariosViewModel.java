@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 import com.ispc.consorciomobile.model.Residente;
 import com.ispc.consorciomobile.network.ApiService;
 import com.ispc.consorciomobile.network.RetrofitClient;
-import com.ispc.consorciomobile.network.TokenManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +25,6 @@ public class UsuariosViewModel extends ViewModel {
 
     public UsuariosViewModel() {
         this.apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-        String tokenActual = TokenManager.obtenerToken();
-        android.util.Log.d("DEBUG_TOKEN", "Token actual en memoria: " + tokenActual);
     }
 
     public LiveData<List<Residente>> getListaUsuarios() { return listaUsuariosLiveData; }

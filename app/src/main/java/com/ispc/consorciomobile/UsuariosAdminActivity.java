@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,9 @@ import java.util.ArrayList;
 public class UsuariosAdminActivity extends AppCompatActivity implements UsuarioAdapter.OnUsuarioAcciones {
     private TextView btnVolver;
     private Button btnNuevoUsuario;
+    private Button btnReintentarUsuarios;
+    private TextView tvEstadoUsuarios;
+    private ProgressBar progressUsuarios;
     private UsuariosViewModel viewModel; // (O el nombre exacto de tu clase ViewModel)
     private UsuarioAdapter adapter;
     private RecyclerView recyclerView;
@@ -37,10 +42,31 @@ public class UsuariosAdminActivity extends AppCompatActivity implements UsuarioA
         adapter = new UsuarioAdapter(this, new ArrayList<>(), this);
         recyclerView.setAdapter(adapter);
 
+        progressUsuarios = findViewById(R.id.progressUsuarios);
+        tvEstadoUsuarios = findViewById(R.id.tvEstadoUsuarios);
+        btnReintentarUsuarios = findViewById(R.id.btnReintentarUsuarios);
+        btnReintentarUsuarios.setOnClickListener(view -> viewModel.cargarUsuarios());
+
+        btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
+        btnNuevoUsuario.setOnClickListener(view -> abrirFormulario(null));
+
         viewModel = new ViewModelProvider(this).get(UsuariosViewModel.class);
+
+        // Mientras el ViewModel carga, mostramos la barra de progreso.
+        viewModel.getIsLoadingLiveData().observe(this, cargando -> {
+            boolean cargandoAhora = Boolean.TRUE.equals(cargando);
+            progressUsuarios.setVisibility(cargandoAhora ? View.VISIBLE : View.GONE);
+            btnNuevoUsuario.setEnabled(!cargandoAhora);
+        });
 
         viewModel.getListaUsuarios().observe(this, residentes -> {
             adapter.actualizar(residentes); // ¡Esto inyecta los datos reales en la lista!
+
+            // Si el padrón está vacío avisamos, y ofrecemos reintentar la carga.
+            boolean vacia = residentes == null || residentes.isEmpty();
+            tvEstadoUsuarios.setText(R.string.usuarios_vacio);
+            tvEstadoUsuarios.setVisibility(vacia ? View.VISIBLE : View.GONE);
+            btnReintentarUsuarios.setVisibility(vacia ? View.VISIBLE : View.GONE);
         });
 
         // Avisamos el resultado de la baja (o el error) con un Toast.
@@ -54,11 +80,6 @@ public class UsuariosAdminActivity extends AppCompatActivity implements UsuarioA
         btnVolver.setOnClickListener(view -> finish());
         TextView txtTituloBarra = findViewById(R.id.txtTituloBarra);
         txtTituloBarra.setText(R.string.titulo_usuarios);
-
-        btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
-        btnNuevoUsuario.setOnClickListener(view -> abrirFormulario(null));
-
-
 
     }
 
@@ -92,18 +113,11 @@ public class UsuariosAdminActivity extends AppCompatActivity implements UsuarioA
         // Confirmación previa: la baja es definitiva.
         new AlertDialog.Builder(this)
                 .setTitle(R.string.dialogo_eliminar_titulo)
-                .setMessage(getString(R.string.dialogo_eliminar_mensaje, nombreCompleto(usuario)))
+                .setMessage(getString(R.string.dialogo_eliminar_mensaje, usuario.getNombreCompleto()))
                 .setPositiveButton(R.string.dialogo_eliminar_confirmar,
                         (dialog, which) -> viewModel.eliminarUsuario(usuario.getId()))
                 .setNegativeButton(R.string.dialogo_eliminar_cancelar, null)
                 .show();
     }
 
-    // Nombre y apellido para mostrar en el diálogo, sin "null" si faltan.
-    private String nombreCompleto(Residente usuario) {
-        String nombre = usuario.getNombre() == null ? "" : usuario.getNombre().trim();
-        String apellido = usuario.getApellido() == null ? "" : usuario.getApellido().trim();
-        String completo = (nombre + " " + apellido).trim();
-        return completo.isEmpty() ? usuario.getUsername() : completo;
-    }
 }
