@@ -29,20 +29,6 @@
             android:textStyle="bold"
             android:contentDescription="@string/btn_nuevo_usuario" />
 
-        <EditText
-            android:id="@+id/etBuscarUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:background="@color/gris_fondo_input"
-            android:contentDescription="@string/buscar_usuario"
-            android:hint="@string/buscar_usuario"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:paddingHorizontal="12dp"
-            android:textColor="@color/texto_principal"
-            android:textSize="14sp" />
-
         <ProgressBar
             android:id="@+id/progressUsuarios"
             style="?android:attr/progressBarStyleHorizontal"

@@ -8,7 +8,7 @@ public class Residente {
     private String email;
     private  String nombre;
     private  String apellido;
-    private  int unidad;
+    private  Integer unidad;
     @SerializedName("unidad_detalle")
     private Unidad unidadDetalle;
 
@@ -26,7 +26,7 @@ public class Residente {
     public String getEmail() { return email; }
     public String getNombre() { return nombre; }
     public String getApellido() { return apellido; }
-    public int getUnidad() { return unidad; }
+    public Integer getUnidad() { return unidad; }
     public Unidad getUnidadDetalle() { return unidadDetalle; }
 
 }

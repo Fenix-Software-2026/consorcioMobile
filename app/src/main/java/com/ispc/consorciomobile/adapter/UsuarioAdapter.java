@@ -55,7 +55,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
         holder.tvNombreUsuarioItem.setText(usuario.getNombre() + usuario.getApellido());
         holder.tvUsernameUsuarioItem.setText("@" + usuario.getUsername());
         holder.tvEmailUsuarioItem.setText(usuario.getEmail());
-        holder.tvUnidadUsuarioItem.setText("Unidad #" + usuario.getUnidad());
+        holder.tvUnidadUsuarioItem.setText("Unidad #" + usuario.getUnidadDetalle());
 
         // 3. Configuramos el botón EDITAR para que avise a la Activity
         holder.btnEditarUsuario.setOnClickListener(v -> {

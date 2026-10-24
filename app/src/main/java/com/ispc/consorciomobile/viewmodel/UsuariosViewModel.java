@@ -9,6 +9,7 @@ import com.ispc.consorciomobile.network.ApiService;
 import com.ispc.consorciomobile.network.RetrofitClient;
 import com.ispc.consorciomobile.network.TokenManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,32 +36,27 @@ public class UsuariosViewModel extends ViewModel {
     public LiveData<String> getToastMessageLiveData() { return toastMessageLiveData; }
 
     public void cargarUsuarios() {
-        isLoadingLiveData.setValue(true);
+        isLoadingLiveData.setValue(true); // Prendemos el cartel de "Cargando..."
 
-        apiService.obtenerResidentes().enqueue(new Callback<List<Residente>>() {
+           apiService.obtenerResidentes().enqueue(new Callback<List<Residente>>() {
             @Override
             public void onResponse(Call<List<Residente>> call, Response<List<Residente>> response) {
-                isLoadingLiveData.setValue(false);
-
-                // Imprimimos el código HTTP para ver si respondió 200 OK
-                android.util.Log.d("DEBUG_BACKEND", "Código HTTP recibido: " + response.code());
-
+                isLoadingLiveData.setValue(false); // Apagamos el "Cargando..."
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Residente> lista = response.body();
+                    List<Residente> listaCompleta = response.body();
+                    List<Residente> listaFiltrada = new ArrayList<>();
 
-                    // ¡Acá imprimimos cuántos usuarios llegaron!
-                    android.util.Log.d("DEBUG_BACKEND", "¡Llegaron datos! Cantidad de usuarios: " + lista.size());
-
-                    // Recorremos la lista para ver qué trajo cada uno en el Logcat
-                    for (int i = 0; i < lista.size(); i++) {
-                        Residente r = lista.get(i);
-                        android.util.Log.d("DEBUG_BACKEND", "Usuario [" + i + "]: " + r.getApellido());
+                    for (Residente r : listaCompleta) {
+                        // Solo dejamos pasar a los que tienen una unidad asignada
+                        if (r.getUnidad()!= null) {
+                            listaFiltrada.add(r);
+                        }
                     }
+                    //  Guardamos la lista que trajo la API en el LiveData
+                    listaUsuariosLiveData.setValue(listaFiltrada);
 
-                    // Se los mandamos al LiveData para que la pantalla los dibuje
-                    listaUsuariosLiveData.setValue(lista);
+
                 } else {
-                    android.util.Log.d("DEBUG_BACKEND", "La respuesta fue exitosa pero el body es NULO o falló.");
                     toastMessageLiveData.setValue("Error al cargar los usuarios.");
                 }
             }
@@ -68,7 +64,6 @@ public class UsuariosViewModel extends ViewModel {
             @Override
             public void onFailure(Call<List<Residente>> call, Throwable t) {
                 isLoadingLiveData.setValue(false);
-                android.util.Log.d("DEBUG_BACKEND", "Fallo total de red: " + t.getMessage());
                 toastMessageLiveData.setValue("Error de conexión: " + t.getMessage());
             }
         });
