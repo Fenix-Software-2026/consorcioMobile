@@ -37,4 +37,9 @@
     <string name="dialogo_eliminar_confirmar">Eliminar</string>
     <string name="dialogo_eliminar_cancelar">Cancelar</string>
 
+    <!-- Confirmación del alta -->
+    <string name="dialogo_alta_titulo">Usuario creado</string>
+    <string name="dialogo_alta_mensaje">El residente quedó registrado. Las credenciales de acceso se enviarán por correo a %1$s.</string>
+    <string name="dialogo_alta_aceptar">Entendido</string>
+
 </resources>

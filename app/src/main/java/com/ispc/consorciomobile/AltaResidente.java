@@ -1,5 +1,6 @@
 package com.ispc.consorciomobile;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -249,11 +250,9 @@ public class AltaResidente extends AppCompatActivity {
             public void onResponse(Call<Residente> call, Response<Residente> response) {
                 btnGuardar.setEnabled(true);
                 if (response.isSuccessful()) {
-                    // HTTP 2xx: el backend creó el residente correctamente.
-                    Toast.makeText(AltaResidente.this,
-                            "Residente creado correctamente",
-                            Toast.LENGTH_SHORT).show();
-                    finish();
+                    // HTTP 2xx: el backend creó el residente y le envía las
+                    // credenciales provisorias por correo.
+                    mostrarConfirmacionAlta(email);
                 } else {
                     // El servidor respondió, pero rechazó la solicitud.
                     String detalle = obtenerDetalleError(response);
@@ -273,6 +272,16 @@ public class AltaResidente extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    // Aviso de alta: confirma la operación e informa que las credenciales van por correo.
+    private void mostrarConfirmacionAlta(String email) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.dialogo_alta_titulo)
+                .setMessage(getString(R.string.dialogo_alta_mensaje, email))
+                .setPositiveButton(R.string.dialogo_alta_aceptar, (dialog, which) -> finish())
+                .setCancelable(false)
+                .show();
     }
 
     // Guarda los cambios del residente que se está editando (PATCH).
