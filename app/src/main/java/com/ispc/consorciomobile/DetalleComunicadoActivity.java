@@ -1,5 +1,6 @@
 package com.ispc.consorciomobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -44,5 +45,8 @@ public class DetalleComunicadoActivity extends AppCompatActivity {
                 tvPrioridad.setText("GENERAL");
             }
         }
+
+        TextView btnVolver = findViewById(R.id.btnVolverBarra);
+        btnVolver.setOnClickListener(view -> finish());
     }
 }
