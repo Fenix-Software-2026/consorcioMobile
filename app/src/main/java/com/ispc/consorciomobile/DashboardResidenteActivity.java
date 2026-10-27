@@ -7,12 +7,14 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 import com.ispc.consorciomobile.model.Reclamo;
 import com.ispc.consorciomobile.model.Residente;
 import com.ispc.consorciomobile.network.ApiService;
 import com.ispc.consorciomobile.network.RetrofitClient;
+import com.ispc.consorciomobile.viewmodel.MiPerfilViewModel;
 
 import android.content.Intent;
 
@@ -40,10 +42,16 @@ DashboardResidenteActivity extends AppCompatActivity {
 
     private TextView tvTituloComunicado;
 
+    private MiPerfilViewModel perfilViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_residente);
+
+        perfilViewModel = new ViewModelProvider(this).get(MiPerfilViewModel.class);
+
+        observarViewModel();
 
         tvSaludo = findViewById(R.id.tvSaludo);
         cargarPerfilResidente();
@@ -120,7 +128,32 @@ DashboardResidenteActivity extends AppCompatActivity {
                 return true;
             }
 
+            if (item.getItemId() == R.id.nav_cerrar_sesion) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                perfilViewModel.cerrarSesionSegura();
+                return true;
+            }
+
             return false;
+        });
+    }
+
+    private void observarViewModel() {
+        perfilViewModel.getToastMessageLiveData().observe(this, mensaje -> {
+            if (mensaje != null) {
+                Toast.makeText(DashboardResidenteActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Cuando la sesión se cierra con éxito, redirige al Login
+        perfilViewModel.getSessionClosedLiveData().observe(this, sesionCerrada -> {
+            if (sesionCerrada != null && sesionCerrada) {
+                // Redirige a la pantalla de Login y limpia el historial de pantallas
+                Intent intent = new Intent(DashboardResidenteActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
         });
     }
 
