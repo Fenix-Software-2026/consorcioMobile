@@ -39,17 +39,10 @@ public class DetalleReclamoActivity extends AppCompatActivity {
 
         TextView txtTitulo = findViewById(R.id.txtTituloBarra);
         txtTitulo.setText("Detalle Reclamo");
-        TextView btnVolverBarra = findViewById(R.id.btnVolverBarra);
-        if (btnVolverBarra != null) {
-            btnVolverBarra.setOnClickListener(v -> {
-                boolean esAdmin = getIntent().getBooleanExtra("ES_ADMIN", false);
-                Intent intent = new Intent(DetalleReclamoActivity.this, MisReclamosActivity.class);
-                intent.putExtra("ES_ADMIN", esAdmin);
-                startActivity(intent);
-                finish();
-            });
-            ;
-        }
+        
+        // Salimos del panel para volver a la pantalla anterior.
+        TextView btnVolver = findViewById(R.id.btnVolverBarra);
+        btnVolver.setOnClickListener(view -> finish());
 
         TextView tvTitulo = findViewById(R.id.tvDetalleTitulo);
         TextView tvDescripcion = findViewById(R.id.tvDetalleDescripcion);

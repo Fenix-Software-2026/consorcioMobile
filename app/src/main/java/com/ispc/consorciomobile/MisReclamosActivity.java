@@ -33,7 +33,6 @@ public class MisReclamosActivity extends AppCompatActivity {
     private RecyclerView recyclerMisReclamos;
     private ReclamoAdapter reclamoAdapter;
     private Button btn_crear_reclamo_activity;
-    private Button btn_reclamos_volver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,36 +40,16 @@ public class MisReclamosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mis_reclamos);
         Log.d(TAG, "--> onCreate de MisReclamosActivity INICIADO");
 
-        TextView txtTitulo = findViewById(R.id.txtTituloBarra);
-        txtTitulo.setText("Mis reclamos");
-
 
         Log.d("PRUEBA_RECLAMOS", "--> onCreate de MisReclamosActivity INICIADO");
         Toast.makeText(this, "Abriendo Mis Reclamos...", Toast.LENGTH_SHORT).show();
 
 
-         btn_reclamos_volver = findViewById(R.id.btn_reclamos_volver);
-
-
-         btn_crear_reclamo_activity = findViewById(R.id.btn_crear_reclamo_activity);
+        btn_crear_reclamo_activity = findViewById(R.id.btn_crear_reclamo_activity);
         recyclerMisReclamos = findViewById(R.id.recyclerMisReclamos);
 
         recyclerMisReclamos.setLayoutManager(new LinearLayoutManager(this));
         probarConexionReclamos();
-
-        btn_reclamos_volver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean esAdmin = getIntent().getBooleanExtra("ES_ADMIN", false);
-                // Si es admin, vuelve al AdminDashboard; sino, al de residente
-                Class<?> destino = esAdmin ? AdminDashboard.class : DashboardResidenteActivity.class;
-                Intent intent = new Intent(MisReclamosActivity.this, destino
-                );
-                intent.putExtra("ES_ADMIN", esAdmin);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         btn_crear_reclamo_activity.setOnClickListener(new View.OnClickListener() {
 
@@ -80,6 +59,14 @@ public class MisReclamosActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Salimos del panel para volver a la pantalla anterior.
+        TextView btnVolver = findViewById(R.id.btnVolverBarra);
+        btnVolver.setOnClickListener(view -> finish());
+
+        // Titulo barra
+        TextView txtTituloBarra = findViewById(R.id.txtTituloBarra);
+        txtTituloBarra.setText("Mis Reclamos");
     }
           @Override
             protected void onResume() {

@@ -32,15 +32,13 @@ public class ComunicadosResidenteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comunicados_residente);
 
-        // Referencia al botón de retorno en la barra superior
-        Button btnVolverDashboard = findViewById(R.id.btnVolverDashboard);
+        // Salimos del panel para volver a la pantalla anterior.
+        TextView btnVolver = findViewById(R.id.btnVolverBarra);
+        btnVolver.setOnClickListener(view -> finish());
 
-        // Configuración del Intent para volver al Dashboard del Residente
-        btnVolverDashboard.setOnClickListener(v -> {
-            Intent intent = new Intent(ComunicadosResidenteActivity.this, DashboardResidenteActivity.class);
-            startActivity(intent);
-            finish(); // Cierra esta activity opcionalmente para mantener limpia la pila de navegación
-        });
+        // Titulo barra
+        TextView txtTituloBarra = findViewById(R.id.txtTituloBarra);
+        txtTituloBarra.setText("Comunicados");
 
         recyclerComunicados = findViewById(R.id.recyclerComunicados);
         tvSinComunicados = findViewById(R.id.tvSinComunicados);
