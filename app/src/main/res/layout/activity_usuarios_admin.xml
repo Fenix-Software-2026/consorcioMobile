@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F8F9FA">
+    <include
+        android:id="@+id/usuariosListaToolbar"
+        layout="@layout/barra_personalizada" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/subtitulo_lista_usuarios"
+            android:textColor="@color/gris_texto"
+            android:textSize="14sp"
+            android:layout_marginBottom="16dp" />
+        <Button
+            android:id="@+id/btnNuevoUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:backgroundTint="@color/naranja"
+            android:text="@string/btn_nuevo_usuario"
+            android:textColor="@color/blanco"
+            android:textStyle="bold"
+            android:contentDescription="@string/btn_nuevo_usuario" />
+
+        <ProgressBar
+            android:id="@+id/progressUsuarios"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:indeterminate="true"
+            android:contentDescription="@string/cargando"
+            android:visibility="gone" />
+        <!-- Mensaje de estado: lista vacía, error de red o error HTTP -->
+        <TextView
+            android:id="@+id/tvEstadoUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:paddingVertical="16dp"
+            android:textColor="@color/gris_texto"
+            android:textSize="14sp"
+            android:accessibilityLiveRegion="polite"
+            android:visibility="gone" />
+        <Button
+            android:id="@+id/btnReintentarUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/negro"
+            android:text="@string/reintentar"
+            android:textColor="@color/blanco"
+            android:visibility="gone" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp" />
+    </LinearLayout>
+</LinearLayout>

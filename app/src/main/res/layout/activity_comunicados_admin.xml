@@ -6,43 +6,16 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <!-- Barra superior institucional con color naranja moderno -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/naranja"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="16dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="ConsorcioMobile - Panel Admin"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <!-- Botón para salir del panel, con el mismo estilo que el del residente -->
-        <Button
-            android:id="@+id/btnVolverComunicados"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:text="Volver"
-            android:textSize="12sp"
-            android:textColor="#A35A00"
-            android:backgroundTint="@color/white"
-            app:cornerRadius="20dp"
-            android:paddingHorizontal="14dp" />
-    </LinearLayout>
+    <!-- Barra superior institucional incluida mediante layout -->
+    <include
+        android:id="@+id/usuariosToolbar"
+        layout="@layout/barra_personalizada" />
 
     <!-- Contenedor con el formulario y la sección de historial -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:padding="20dp">
 

@@ -55,13 +55,12 @@ public class ComunicadosAdminActivity extends AppCompatActivity
         recyclerComunicadosAdmin.setLayoutManager(new LinearLayoutManager(this));
 
         // Salimos del panel para volver a la pantalla anterior.
-        Button btnVolverComunicados = findViewById(R.id.btnVolverComunicados);
-        btnVolverComunicados.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        TextView btnVolver = findViewById(R.id.btnVolverBarra);
+        btnVolver.setOnClickListener(view -> finish());
+
+        // Titulo barra
+        TextView txtTituloBarra = findViewById(R.id.txtTituloBarra);
+        txtTituloBarra.setText("Comunicados");
 
         // Sale del modo edición sin guardar los cambios.
         btnCancelarEdicion.setOnClickListener(new View.OnClickListener() {

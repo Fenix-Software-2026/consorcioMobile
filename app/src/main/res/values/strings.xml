@@ -2,6 +2,8 @@
 
     <string name="app_name">ConsorcioMobile</string>
     <string name="seleccionar_unidad">Seleccionar unidad funcional</string>
+    <string name="cargando">Cargando</string>
+
 
     <!-- Textos para Comunicados -->
     <string name="titulo_crear_comunicado">Publicar Nuevo Comunicado</string>
@@ -17,5 +19,27 @@
     <string name="en_proceso">En Proceso</string>
     <string name="crear_reclamo">Crear Reclamo</string>
     <string name="pantalla_principal">Pantalla principal</string>
+
+    <!-- Textos para Usuarios (CRUD del padrón) -->
+    <string name="titulo_usuarios">Usuarios</string>
+    <string name="subtitulo_lista_usuarios">Padrón del consorcio. Desde acá podés dar de alta, editar o eliminar usuarios.</string>
+    <string name="btn_nuevo_usuario">Nuevo usuario</string>
+    <string name="usuarios_vacio">Todavía no hay usuarios registrados.</string>
+    <string name="usuarios_vacio_filtro">Ningún usuario coincide con la búsqueda.</string>
+    <string name="buscar_usuario">Buscar por nombre, usuario, email o unidad</string>
+    <string name="reintentar">Reintentar</string>
+    <string name="usuario_sin_unidad">Sin unidad asignada</string>
+    <string name="usuario_vos">Vos</string>
+    <string name="usuario_inactivo">Inactivo</string>
+    <string name="accion_eliminar">Eliminar</string>
+    <string name="dialogo_eliminar_titulo">Eliminar residente</string>
+    <string name="dialogo_eliminar_mensaje">¿Seguro que querés eliminar a %1$s? Esta acción no se puede deshacer.</string>
+    <string name="dialogo_eliminar_confirmar">Eliminar</string>
+    <string name="dialogo_eliminar_cancelar">Cancelar</string>
+
+    <!-- Confirmación del alta -->
+    <string name="dialogo_alta_titulo">Usuario creado</string>
+    <string name="dialogo_alta_mensaje">El residente quedó registrado. Las credenciales de acceso se enviarán por correo a %1$s.</string>
+    <string name="dialogo_alta_aceptar">Entendido</string>
 
 </resources>

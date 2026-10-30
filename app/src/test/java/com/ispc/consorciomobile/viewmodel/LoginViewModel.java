@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.ispc.consorciomobile.ValidadorLogin;
-import com.ispc.consorciomobile.data.AuthRepository;
+import com.ispc.consorciomobile.network.AuthRepository;
 
 public class LoginViewModel extends ViewModel {
 
